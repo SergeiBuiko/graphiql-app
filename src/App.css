@@ -1,0 +1,23 @@
+:root {
+  --color-primary: #a463f2;
+  --color-gray-dark: #ccc;
+  --color-gray: #f9fafb;
+  --font-primary: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-family: var(--font-primary);
+}
+
+.main-page__container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+}
