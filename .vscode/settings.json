@@ -8,5 +8,6 @@
     "sergeibuiko",
     "svgr",
     "xobby"
-  ]
+  ],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

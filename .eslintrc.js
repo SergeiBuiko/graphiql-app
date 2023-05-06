@@ -1,20 +1,46 @@
 module.exports = {
-  root: true,
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: ['./tsconfig.json'], //required for "type-aware linting"
-    tsconfigRootDir: __dirname,
+  extends: [
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+    'plugin:prettier/recommended',
+  ],
+  env: {
+    browser: true,
+    es6: true,
+    jest: true,
+    node: true,
   },
-  plugins: ['@typescript-eslint'],
-  extends: ['airbnb-typescript', 'prettier'],
+  root: true,
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: ['@typescript-eslint', 'react', 'prettier', 'react-hooks'],
   rules: {
-    'react/jsx-filename-extension': 'off',
+    'comma-dangle': ['error', 'only-multiline'],
+    'react/prop-types': 'off',
+    'react/display-name': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    'import/no-extraneous-dependencies': 'off',
-    'import/extensions': 'off',
-    // '@typescript-eslint/no-explicit-any': 'warn',
-    // "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
-    // "import/no-extraneous-dependencies": ["error", {"devDependencies": false, "optionalDependencies": false, "peerDependencies": false}]
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/ban-ts-comment': 'error',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/no-var-requires': 'off',
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+  },
+  settings: {
+    react: {
+      pragma: 'React',
+      version: 'detect',
+    },
   },
 };

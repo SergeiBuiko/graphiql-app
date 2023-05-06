@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
+import styles from './App.module.css';
 import { WelcomePage } from './pages/WelcomePage';
 import { GraphiQLPage } from './pages/GraphiQLPage';
 import { Navigation } from './components/Navigation';
@@ -8,7 +8,7 @@ import { AccounPage } from './pages/AccounPage';
 
 export function App() {
   return (
-    <div className="main-page__container">
+    <div className={styles['main-page__container']}>
       <Navigation />
 
       <Routes>
