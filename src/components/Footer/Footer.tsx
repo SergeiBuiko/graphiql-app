@@ -1,26 +1,26 @@
-import '../assets/GitHubLogo.png';
-import '../assets/GitHubLogo1.png';
-import style from './footer.module.css';
+import '../../assets/GitHubLogo.png';
+import '../../assets/GitHubLogo1.png';
+import styles from './Footer.module.css';
 
 export function Footer() {
   return (
-    <footer className={style['footer-wrap']}>
-      <div className={style['develop-wrapper']}>
+    <footer className={styles['footer-wrap']}>
+      <div className={styles['develop-wrapper']}>
         <a href="https://github.com/SergeiBuiko/graphiql-app">
-          <img className={style['github-img']} src="GitHubLogo1.png"></img>
+          <img className={styles['github-img']} src="GitHubLogo1.png"></img>
         </a>
-        <div className={style['develop-links']}>
+        <div className={styles['develop-links']}>
           <a
-            className={style['github-link']}
+            className={styles['github-link']}
             href="https://github.com/SergeiBuiko"
           >
             sergeibuiko
           </a>
-          <a className={style['github-link']} href="https://github.com/kavume">
+          <a className={styles['github-link']} href="https://github.com/kavume">
             kavume
           </a>
           <a
-            className={style['github-link']}
+            className={styles['github-link']}
             href="https://github.com/xobby-tt"
           >
             xobby-tt
@@ -33,7 +33,7 @@ export function Footer() {
       <div className="rs-school">
         <a href="https://rs.school/js/">
           <img
-            className={style['rs-img']}
+            className={styles['rs-img']}
             src="https://rs.school/images/rs_school_js.svg"
             alt="RS-logo"
           ></img>

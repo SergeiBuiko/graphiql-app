@@ -1,13 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 import styles from './App.module.css';
-import { WelcomePage } from './pages/WelcomePage';
-import { GraphiQLPage } from './pages/GraphiQLPage';
-import { Navigation } from './components/Navigation';
-import { Footer } from './components/Footer';
-import { AccounPage } from './pages/AccounPage';
+import { WelcomePage } from './pages/WelcomePage/WelcomePage';
+import { AccountPage, GraphiQlPage } from './pages';
 import { useState } from 'react';
 import { I18nProvider, LOCALES } from './i18n';
 import translate from './i18n/translate';
+import { Footer, Navigation } from './components';
 
 export function App() {
   const [locale, setLocal] = useState(LOCALES.ENGLISH);
@@ -41,8 +39,8 @@ export function App() {
 
         <Routes>
           <Route path="/" element={<WelcomePage />} />
-          <Route path="/GraphiQL" element={<GraphiQLPage />} />
-          <Route path="/account" element={<AccounPage />} />
+          <Route path="/GraphiQL" element={<GraphiQlPage />} />
+          <Route path="/account" element={<AccountPage />} />
         </Routes>
         <Footer />
       </div>
