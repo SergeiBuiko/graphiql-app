@@ -15,6 +15,7 @@ export function App() {
         <Route path="/GraphiQL" element={<GraphiQlPage />} />
         <Route path="/account" element={<AccountPage />} />
       </Routes>
+
       <Footer />
     </div>
   );
