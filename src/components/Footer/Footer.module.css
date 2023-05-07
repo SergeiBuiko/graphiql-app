@@ -1,0 +1,32 @@
+.footer-wrap {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(61, 70, 87);
+  color: white;
+}
+
+.github-img {
+  width: 120px;
+}
+.rs-img {
+  width: 150px;
+}
+
+.github-link {
+  margin-right: 10px;
+}
+
+.develop-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.develop-links {
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+  justify-content: space-around;
+}

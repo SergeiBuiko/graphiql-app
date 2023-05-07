@@ -1,10 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import styles from './App.module.css';
-import { WelcomePage } from './pages/WelcomePage';
-import { GraphiQLPage } from './pages/GraphiQLPage';
+import { WelcomePage } from './pages/WelcomePage/WelcomePage';
 import { Navigation } from './components/Navigation';
 import { Footer } from './components/Footer';
-import { AccounPage } from './pages/AccounPage';
+import { AccountPage, GraphiQlPage } from './pages';
 
 export function App() {
   return (
@@ -13,8 +12,8 @@ export function App() {
 
       <Routes>
         <Route path="/" element={<WelcomePage />} />
-        <Route path="/GraphiQL" element={<GraphiQLPage />} />
-        <Route path="/account" element={<AccounPage />} />
+        <Route path="/GraphiQL" element={<GraphiQlPage />} />
+        <Route path="/account" element={<AccountPage />} />
       </Routes>
       <Footer />
     </div>

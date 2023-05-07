@@ -1,0 +1,77 @@
+.navigation {
+  display: flex;
+  height: 64px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(61, 70, 87);
+  text-align: center;
+  color: white;
+  font-size: large;
+  padding: 1%;
+}
+
+.button-lang {
+  width: 4rem;
+  border-radius: 9999px;
+  padding: 0.5rem;
+  border-width: 1px;
+}
+
+.nav-list {
+  margin-right: 1.25rem;
+}
+
+.logo-main {
+  width: 50px;
+}
+
+@media screen and (max-width: 850px) and (min-width: 700px) {
+  .navigation-container {
+    font-size: medium;
+  }
+}
+
+@media screen and (max-width: 699px) and (min-width: 596px) {
+  .navigation-container {
+    font-size: small;
+  }
+
+  .button-lang {
+    width: 2.5rem;
+  }
+
+  .logout {
+    font-size: smaller;
+  }
+
+  .nav-list {
+    margin-right: 0.3rem;
+  }
+}
+
+@media screen and (max-width: 595px) and (min-width: 320px) {
+  .navigation-container {
+    font-size: 10px;
+  }
+
+  .button-lang {
+    width: 2rem;
+    padding: 0.25rem;
+  }
+
+  .logout {
+    font-size: 10px;
+  }
+
+  .nav-list {
+    margin-right: 0.25rem;
+  }
+
+  .logout-text {
+    display: none;
+  }
+
+  .logo-main {
+    display: none;
+  }
+}
