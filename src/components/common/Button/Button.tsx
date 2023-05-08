@@ -2,7 +2,7 @@ import styles from './Button.module.css';
 
 interface ButtonProps {
   text: string;
-  clickHandler: () => void;
+  clickHandler?: () => void;
 }
 
 export const Button = ({ text, clickHandler }: ButtonProps) => {

@@ -1,0 +1,49 @@
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.label {
+    font-size: 1rem;
+    color: #333333;
+    font-weight: normal;
+    text-transform: capitalize;
+}
+
+.input {
+    outline: none;
+    border: 1px solid #DEDEDE;
+    border-radius: 8px;
+    font-size: 1rem;
+    padding: 16px;
+}
+
+.input:focus {
+    border: 1px solid #3d4657;
+}
+
+.input.error {
+    border: 1px solid #e435aa;
+}
+
+.errorMessage {
+    color: #e435aa;
+    font-size: 0.8rem;
+    margin-top: 6px;
+}
+
+@media screen and (max-width: 768px) {
+    .inputWrapper {
+        gap: 6px;
+    }
+
+    .label {
+        font-size: 0.8rem;
+    }
+
+    .input {
+        font-size: 0.8rem;
+    }
+}

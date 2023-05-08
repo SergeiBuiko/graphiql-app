@@ -7,9 +7,10 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../../firebaseClient/clientApp';
 import { useAppDispatch } from '../../../../store/hooks';
 import { setUserEmail } from '../../../../store/slices/AuthenticationSlice';
+import { useNavigate } from 'react-router-dom';
 
 interface SignInProps {
-  closeFormModal: () => void;
+  closeFormModal?: () => void;
 }
 
 interface FormData {
@@ -27,8 +28,10 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
@@ -44,16 +47,21 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
       .then((userCredential) => {
         userEmailHandler(userCredential.user.email);
         reset();
-        closeFormModal();
+        navigate('/');
       })
       .catch((error) => {
-        console.log(error.message);
+        if (error.code === 'auth/wrong-password') {
+          setErrorMessage('Wrong password');
+        } else if (error.code === 'auth/user-not-found') {
+          setErrorMessage('User not found. Please, sign up');
+        } else {
+          console.log(error.message);
+        }
       });
   };
 
   return (
-    <div>
-      SignIn
+    <div className={styles.contentWrapper}>
       <Input
         type="email"
         placeholder="Enter email"
@@ -64,10 +72,11 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
             message: '* This field is required',
           },
         })}
+        error={errors?.email?.message}
       />
       <Input
         type="text"
-        placeholder="password"
+        placeholder="Enter password"
         onInput={handleChangePassword}
         {...register('password', {
           required: {
@@ -82,6 +91,7 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
         error={errors?.password?.message}
       />
       <Button clickHandler={handleSubmit(handleSignIn)} text="Sign In" />
+      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>
   );
 };

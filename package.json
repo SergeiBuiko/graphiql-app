@@ -86,7 +86,6 @@
     "react-i18next": "^12.2.2",
     "react-intl": "^6.2.8",
     "react-jwt": "^1.1.8",
-    "react-modal": "^3.16.1",
     "react-svg": "^15.1.21",
     "use-clipboard-copy": "^0.2.0",
     "use-request-animation-frame": "^0.1.2"

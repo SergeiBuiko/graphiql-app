@@ -13,9 +13,12 @@ interface InputProps {
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   return (
     <div>
-      <div>
-        <label htmlFor={props.name}>{props.name}</label>
+      <div className={styles.inputWrapper}>
+        <label className={styles.label} htmlFor={props.name}>
+          {props.name}
+        </label>
         <input
+          className={`${styles.input} ${props.error ? styles.error : ''}`}
           type={props.type}
           placeholder={props.placeholder}
           onInput={props.onInput}
@@ -23,7 +26,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
           {...props}
         />
       </div>
-      {props.error && <p>{props.error}</p>}
+      {props.error && <p className={styles.errorMessage}>{props.error}</p>}
     </div>
   );
 });

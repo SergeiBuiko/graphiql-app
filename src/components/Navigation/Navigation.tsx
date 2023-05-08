@@ -1,36 +1,15 @@
 import { Link } from 'react-router-dom';
 import '../../assets/Logo.png';
-import { useState } from 'react';
-import ReactModal from 'react-modal';
 import { signOut } from 'firebase/auth';
-
 import styles from './Navigation.module.css';
 import { Button } from '../common/Button';
-import { SignIn } from '../common/LoginFormModal/SignIn';
-import { SignUp } from '../common/LoginFormModal/SignUp';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { auth } from '../../firebaseClient/clientApp';
 import { setUserEmail } from '../../store/slices/AuthenticationSlice';
 
 export function Navigation() {
   const isAuth = useAppSelector((state) => state.authentication.userEmail);
-  console.log(isAuth);
   const dispatch = useAppDispatch();
-
-  const [modalFormIsOpen, setIsOpen] = useState(false);
-  const [isSignIn, setIsSignIn] = useState(false);
-
-  const closeFormModal = () => setIsOpen(false);
-
-  const openSignInModal = () => {
-    setIsOpen(true);
-    setIsSignIn(true);
-  };
-
-  const openSignUpModal = () => {
-    setIsOpen(true);
-    setIsSignIn(false);
-  };
 
   const handleSignOut = () => {
     signOut(auth)
@@ -58,11 +37,11 @@ export function Navigation() {
 
       {!isAuth ? (
         <div className={styles.buttonWrapper}>
-          <Link to="/account">
-            <Button text={'Sigh In'} clickHandler={openSignInModal} />
+          <Link to={`/account?auth=sign-in`}>
+            <Button text={'Sigh In'} />
           </Link>
-          <Link to="/account">
-            <Button text={'Sigh Up'} clickHandler={openSignUpModal} />
+          <Link to={`/account?auth=sign-up`}>
+            <Button text={'Sigh Up'} />
           </Link>
         </div>
       ) : (
@@ -70,20 +49,6 @@ export function Navigation() {
           <Button text={'Sigh Out'} clickHandler={handleSignOut} />
         </div>
       )}
-      <ReactModal
-        isOpen={modalFormIsOpen}
-        onRequestClose={closeFormModal}
-        ariaHideApp={false}
-      >
-        <div>
-          <Button clickHandler={closeFormModal} text="Close" />
-          {!isSignIn ? (
-            <SignUp closeFormModal={closeFormModal} />
-          ) : (
-            <SignIn closeFormModal={closeFormModal} />
-          )}
-        </div>
-      </ReactModal>
     </nav>
   );
 }

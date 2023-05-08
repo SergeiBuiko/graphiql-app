@@ -7,9 +7,10 @@ import { useAppDispatch } from '../../../../store/hooks';
 import { setUserEmail } from '../../../../store/slices/AuthenticationSlice';
 import { useForm } from 'react-hook-form';
 import { Button } from '../../Button';
+import { useNavigate } from 'react-router-dom';
 
 interface SignUpProps {
-  closeFormModal: () => void;
+  closeFormModal?: () => void;
 }
 
 interface FormData {
@@ -30,6 +31,7 @@ export const SignUp = ({ closeFormModal }: SignUpProps) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
@@ -45,12 +47,11 @@ export const SignUp = ({ closeFormModal }: SignUpProps) => {
       .then((userCredential) => {
         userEmailHandler(userCredential.user.email);
         reset();
-        closeFormModal();
+        navigate('/');
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
-          console.log('Email already exists. Please sign in.');
-          setErrorMessage('Email already exists. Please sign in.');
+          setErrorMessage('Email already exists. Please, sign in');
         } else {
           console.log(error.message);
         }
@@ -58,8 +59,7 @@ export const SignUp = ({ closeFormModal }: SignUpProps) => {
   };
 
   return (
-    <div>
-      SignUp
+    <div className={styles.contentWrapper}>
       <Input
         type="email"
         placeholder="Enter email"
@@ -70,6 +70,7 @@ export const SignUp = ({ closeFormModal }: SignUpProps) => {
             message: '* This field is required',
           },
         })}
+        error={errors?.email?.message}
       />
       <Input
         type="text"
@@ -100,7 +101,7 @@ export const SignUp = ({ closeFormModal }: SignUpProps) => {
         error={errors?.password?.message}
       />
       <Button clickHandler={handleSubmit(handleSignUp)} text="Sign Up" />
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>
   );
 };
