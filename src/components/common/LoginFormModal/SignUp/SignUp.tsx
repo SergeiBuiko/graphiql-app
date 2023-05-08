@@ -8,6 +8,7 @@ import { setUserEmail } from '../../../../store/slices/AuthenticationSlice';
 import { useForm } from 'react-hook-form';
 import { Button } from '../../Button';
 import { useNavigate } from 'react-router-dom';
+import { useIntl } from 'react-intl';
 
 interface SignUpProps {
   closeFormModal?: () => void;
@@ -32,6 +33,20 @@ export const SignUp = ({ closeFormModal }: SignUpProps) => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const intl = useIntl();
+
+  const emailExistError = intl.formatMessage({
+    id: 'signUpEmailExistError',
+  });
+  const enterEmailPlaceholder = intl.formatMessage({
+    id: 'signUpEnterEmailPlaceholder',
+  });
+  const enterPasswordPlaceholder = intl.formatMessage({
+    id: 'signUpEnterPasswordPlaceholder',
+  });
+  const buttonSignUp = intl.formatMessage({
+    id: 'signUpBtnSighUp',
+  });
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
@@ -51,7 +66,7 @@ export const SignUp = ({ closeFormModal }: SignUpProps) => {
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
-          setErrorMessage('Email already exists. Please, sign in');
+          setErrorMessage(emailExistError);
         } else {
           console.log(error.message);
         }
@@ -62,7 +77,7 @@ export const SignUp = ({ closeFormModal }: SignUpProps) => {
     <div className={styles.contentWrapper}>
       <Input
         type="email"
-        placeholder="Enter email"
+        placeholder={enterEmailPlaceholder}
         onInput={handleChangeEmail}
         {...register('email', {
           required: {
@@ -74,7 +89,7 @@ export const SignUp = ({ closeFormModal }: SignUpProps) => {
       />
       <Input
         type="text"
-        placeholder="Enter password"
+        placeholder={enterPasswordPlaceholder}
         onInput={handleChangePassword}
         {...register('password', {
           required: {
@@ -100,7 +115,7 @@ export const SignUp = ({ closeFormModal }: SignUpProps) => {
         })}
         error={errors?.password?.message}
       />
-      <Button clickHandler={handleSubmit(handleSignUp)} text="Sign Up" />
+      <Button clickHandler={handleSubmit(handleSignUp)} text={buttonSignUp} />
       {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>
   );

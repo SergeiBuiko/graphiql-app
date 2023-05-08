@@ -8,6 +8,7 @@ import { auth } from '../../../../firebaseClient/clientApp';
 import { useAppDispatch } from '../../../../store/hooks';
 import { setUserEmail } from '../../../../store/slices/AuthenticationSlice';
 import { useNavigate } from 'react-router-dom';
+import { useIntl } from 'react-intl';
 
 interface SignInProps {
   closeFormModal?: () => void;
@@ -32,6 +33,23 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const intl = useIntl();
+
+  const errorWrongPassword = intl.formatMessage({
+    id: 'signInWrongPassword',
+  });
+  const errorUserNotFound = intl.formatMessage({
+    id: 'signInUserNotFound',
+  });
+  const enterEmailPlaceholder = intl.formatMessage({
+    id: 'signInEnterEmailPlaceholder',
+  });
+  const enterPasswordPlaceholder = intl.formatMessage({
+    id: 'signInEnterPasswordPlaceholder',
+  });
+  const buttonSignIn = intl.formatMessage({
+    id: 'signUpBtnSighIn',
+  });
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
@@ -51,9 +69,9 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
       })
       .catch((error) => {
         if (error.code === 'auth/wrong-password') {
-          setErrorMessage('Wrong password');
+          setErrorMessage(errorWrongPassword);
         } else if (error.code === 'auth/user-not-found') {
-          setErrorMessage('User not found. Please, sign up');
+          setErrorMessage(errorUserNotFound);
         } else {
           console.log(error.message);
         }
@@ -64,7 +82,7 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
     <div className={styles.contentWrapper}>
       <Input
         type="email"
-        placeholder="Enter email"
+        placeholder={enterEmailPlaceholder}
         onInput={handleChangeEmail}
         {...register('email', {
           required: {
@@ -76,7 +94,7 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
       />
       <Input
         type="text"
-        placeholder="Enter password"
+        placeholder={enterPasswordPlaceholder}
         onInput={handleChangePassword}
         {...register('password', {
           required: {
@@ -90,7 +108,7 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
         })}
         error={errors?.password?.message}
       />
-      <Button clickHandler={handleSubmit(handleSignIn)} text="Sign In" />
+      <Button clickHandler={handleSubmit(handleSignIn)} text={buttonSignIn} />
       {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>
   );

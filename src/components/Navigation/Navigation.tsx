@@ -6,10 +6,13 @@ import { Button } from '../common/Button';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { auth } from '../../firebaseClient/clientApp';
 import { setUserEmail } from '../../store/slices/AuthenticationSlice';
+import translate from './../../i18n/translate';
+import { useIntl } from 'react-intl';
 
 export function Navigation() {
   const isAuth = useAppSelector((state) => state.authentication.userEmail);
   const dispatch = useAppDispatch();
+  const intl = useIntl();
 
   const handleSignOut = () => {
     signOut(auth)
@@ -21,6 +24,16 @@ export function Navigation() {
       });
   };
 
+  const buttonSignIn = intl.formatMessage({
+    id: 'navigationBtnSighIn',
+  });
+  const buttonSignUp = intl.formatMessage({
+    id: 'navigationBtnSighUp',
+  });
+  const buttonSignOut = intl.formatMessage({
+    id: 'navigationBtnSignOut',
+  });
+
   return (
     <nav className={styles.navigation}>
       <a href="https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/graphiql.md">
@@ -28,7 +41,7 @@ export function Navigation() {
       </a>
       <div>
         <Link to="/" className={styles['nav-list']}>
-          WELCOME PAGE
+          {translate('navigationWelcomeLink')}
         </Link>
         <Link to="/GraphiQL" className={styles['nav-list']}>
           GraphiQL
@@ -37,16 +50,16 @@ export function Navigation() {
 
       {!isAuth ? (
         <div className={styles.buttonWrapper}>
-          <Link to={`/account?auth=sign-in`}>
-            <Button text={'Sigh In'} />
+          <Link to={`/account?auth=sign-in`} className={styles.linkButton}>
+            <Button text={buttonSignIn} />
           </Link>
-          <Link to={`/account?auth=sign-up`}>
-            <Button text={'Sigh Up'} />
+          <Link to={`/account?auth=sign-up`} className={styles.linkButton}>
+            <Button text={buttonSignUp} />
           </Link>
         </div>
       ) : (
         <div>
-          <Button text={'Sigh Out'} clickHandler={handleSignOut} />
+          <Button text={buttonSignOut} clickHandler={handleSignOut} />
         </div>
       )}
     </nav>

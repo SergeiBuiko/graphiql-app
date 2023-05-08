@@ -2,6 +2,7 @@ import { SignUp } from '../../components/common/LoginFormModal/SignUp';
 import { SignIn } from '../../components/common/LoginFormModal/SignIn';
 import { useLocation } from 'react-router-dom';
 import styles from './AccountPage.module.css';
+import translate from './../../i18n/translate';
 
 export function AccountPage() {
   const location = useLocation();
@@ -13,12 +14,14 @@ export function AccountPage() {
       <div className={styles.formWrapper}>
         <div>
           <p className={styles.subtitle}>
-            {auth === 'sign-in' ? ' Welcome back!' : 'Create account!'}
+            {auth === 'sign-in'
+              ? translate('accountPageSubtitleSignIn')
+              : translate('accountPageSubtitleSignUp')}
           </p>
           <p className={styles.title}>
             {auth === 'sign-in'
-              ? 'Sign in to your account'
-              : 'Sign up to your account'}
+              ? translate('accountPageTitleSignIn')
+              : translate('accountPageTitleSignUp')}
           </p>
         </div>
         {auth === 'sign-in' ? <SignIn /> : <SignUp />}
