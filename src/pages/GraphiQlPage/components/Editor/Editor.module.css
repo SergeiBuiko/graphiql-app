@@ -1,0 +1,66 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.editorField {
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  border: none;
+  border-radius: 20px;
+  resize: none;
+  position: relative;
+}
+.editorField::before {
+  position: absolute;
+  content: '{';
+  top: 0;
+  left: 20px;
+}
+
+.toolsContainer {
+  padding: 20px;
+  padding-left: 0;
+}
+
+.variablesContainer {
+  width: 100%;
+}
+
+.toolsTabs {
+  border-top: 1px solid lightblue;
+  padding: 10px;
+}
+
+.content {
+  height: 100%;
+}
+
+.playBtn {
+  display: flex;
+  height: 100%;
+}
+
+.expandBtn {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+.responseContainer {
+  display: flex;
+  overflow-y: auto;
+  height: 100%;
+  position: relative;
+}
+
+.response {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}

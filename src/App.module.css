@@ -46,3 +46,7 @@
 .buttonDisable {
   pointer-events: none;
 }
+
+.content {
+  flex-grow: 1;
+}
