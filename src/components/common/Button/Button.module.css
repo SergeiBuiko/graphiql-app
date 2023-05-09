@@ -1,0 +1,22 @@
+.buttonWrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    padding: 6px 10px;
+    border-radius: 4px;
+    background-color: #edf2f4;
+    color: #1d1d1d;
+    border: none;
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: #e435aa;
+    color: #edf2f4;
+    transition: all 0.3s linear;
+}

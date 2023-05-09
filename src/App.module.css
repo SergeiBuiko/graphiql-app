@@ -41,6 +41,7 @@
   cursor: pointer;
   background-color: #e435aa;
   color: #edf2f4;
+  transition: all 0.3s linear;
 }
 
 .buttonDisable {

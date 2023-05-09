@@ -1,0 +1,16 @@
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+}
+
+.contentWrapper > *:last-child {
+    margin-top: 2rem;
+}
+
+.errorMessage {
+    color: #e435aa;
+    font-size: 1rem;
+    margin-top: 12px;
+    text-align: center;
+}

@@ -75,3 +75,14 @@
     display: none;
   }
 }
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.linkButton {
+  text-decoration: none;
+}

@@ -1,11 +1,39 @@
 import { Link } from 'react-router-dom';
 import '../../assets/Logo.png';
-import { useState } from 'react';
-
-import styles from './navigation.module.css';
+import { signOut } from 'firebase/auth';
+import styles from './Navigation.module.css';
+import { Button } from '../common/Button';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { auth } from '../../firebaseClient/clientApp';
+import { setUserEmail } from '../../store/slices/AuthenticationSlice';
+import translate from './../../i18n/translate';
+import { useIntl } from 'react-intl';
 
 export function Navigation() {
-  const [lang, setLang] = useState(true);
+  const isAuth = useAppSelector((state) => state.authentication.userEmail);
+  const dispatch = useAppDispatch();
+  const intl = useIntl();
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        dispatch(setUserEmail({ userEmail: null }));
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  const buttonSignIn = intl.formatMessage({
+    id: 'navigationBtnSighIn',
+  });
+  const buttonSignUp = intl.formatMessage({
+    id: 'navigationBtnSighUp',
+  });
+  const buttonSignOut = intl.formatMessage({
+    id: 'navigationBtnSignOut',
+  });
+
   return (
     <nav className={styles.navigation}>
       <a href="https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/graphiql.md">
@@ -13,23 +41,27 @@ export function Navigation() {
       </a>
       <div>
         <Link to="/" className={styles['nav-list']}>
-          WELCOME PAGE
+          {translate('navigationWelcomeLink')}
         </Link>
         <Link to="/GraphiQL" className={styles['nav-list']}>
           GraphiQL
         </Link>
-        <Link to="/account" className={styles['nav-list']}>
-          LOG IN
-        </Link>
       </div>
-      <div>
-        <button
-          onClick={() => setLang((prev) => !prev)}
-          className={styles['button-lang']}
-        >
-          {lang ? 'EN' : 'RU'}
-        </button>
-      </div>
+
+      {!isAuth ? (
+        <div className={styles.buttonWrapper}>
+          <Link to={`/account?auth=sign-in`} className={styles.linkButton}>
+            <Button text={buttonSignIn} />
+          </Link>
+          <Link to={`/account?auth=sign-up`} className={styles.linkButton}>
+            <Button text={buttonSignUp} />
+          </Link>
+        </div>
+      ) : (
+        <div>
+          <Button text={buttonSignOut} clickHandler={handleSignOut} />
+        </div>
+      )}
     </nav>
   );
 }
