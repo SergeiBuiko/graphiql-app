@@ -1,0 +1,13 @@
+.response {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  position: absolute;
+  width: 100%;
+}
+
+.responseContainer {
+  display: flex;
+  overflow-y: auto;
+  height: 100%;
+  position: relative;
+}
