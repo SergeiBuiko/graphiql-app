@@ -11,7 +11,7 @@ export function GraphiQlPage() {
       spacing={2}
       alignItems={'stretch'}
     >
-      <Grid item xs={4} wrap="nowrap">
+      <Grid item xs={4}>
         <Paper>
           <Documentation />
         </Paper>
