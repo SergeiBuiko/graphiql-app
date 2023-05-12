@@ -1,38 +1,74 @@
-import { Box, Button, Collapse, Icon, Paper, Stack } from '@mui/material';
+import { Button, Icon, Paper } from '@mui/material';
 import { FC, memo, useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { IQuery } from '../../types';
+import { IInvalidJsonError, IQuery, OptionTabValue } from '../../types';
+import { OptionsEditor } from '../OptionsEditor';
 import styles from './RequestEditor.module.css';
 
-type Tool = 'Variables' | 'Headers';
+export interface IEditorForm {
+  query: string;
+  variables: string;
+  headers: string;
+}
 
 interface IRequestEditorProps {
   onSendQuery: (query: IQuery) => void;
+  onInvalidOptionError: (hasError: boolean) => void;
+}
+
+function getJson(value: string): { [key: string]: unknown } | Error {
+  try {
+    return JSON.parse(value.trim() || '{}');
+  } catch (err) {
+    return err as Error;
+  }
+}
+
+function getErrorMessage(error: unknown): string | null {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return null;
 }
 
 export const RequestEditor: FC<IRequestEditorProps> = memo(
-  ({ onSendQuery }) => {
-    const [openTool, setOpenTool] = useState<'Variables' | 'Headers' | null>();
-    const { register, getValues, reset } = useForm<{
-      query: string;
-      variables: string;
-      headers: string;
-    }>({
+  ({ onSendQuery, onInvalidOptionError }) => {
+    const { register, getValues } = useForm<IEditorForm>({
       defaultValues: {
-        headers: '{ }',
+        variables: '{\n  \n}',
+        headers: '{\n  \n}',
       },
     });
+    const [invalidJsonErrors, setInvalidJsonErrors] =
+      useState<IInvalidJsonError>({});
 
     const handleSendQuery = useCallback(async () => {
-      const queryValue = getValues();
+      const { query, variables, headers } = getValues();
+      const options = {
+        variables: getJson(variables),
+        headers: getJson(headers),
+      };
 
-      await onSendQuery(queryValue);
+      setInvalidJsonErrors({
+        [OptionTabValue.Variables]: getErrorMessage(options.variables),
+        [OptionTabValue.Headers]: getErrorMessage(options.headers),
+      });
+
+      if (Object.values(options).some((value) => value instanceof Error)) {
+        onInvalidOptionError(true);
+        return;
+      }
+
+      onInvalidOptionError(false);
+
+      await onSendQuery({
+        query,
+        variables: options.variables as { [key: string]: unknown },
+        headers: options.headers as { [key: string]: unknown },
+      });
     }, [onSendQuery]);
-
-    const toggleTools = useCallback((tool: Tool | null) => {
-      return () => setOpenTool(tool);
-    }, []);
 
     return (
       <Paper className={styles.editor}>
@@ -49,45 +85,10 @@ export const RequestEditor: FC<IRequestEditorProps> = memo(
           </div>
         </div>
 
-        <Stack className={styles.toolsTabs} direction="row" spacing={2}>
-          <Button
-            variant={openTool === 'Variables' ? 'contained' : 'outlined'}
-            onClick={toggleTools('Variables')}
-          >
-            Variables
-          </Button>
-          <Button
-            variant={openTool === 'Headers' ? 'contained' : 'outlined'}
-            onClick={toggleTools('Headers')}
-          >
-            Headers
-          </Button>
-
-          <div
-            className={styles.expandBtn}
-            onClick={toggleTools(openTool ? null : 'Variables')}
-          >
-            <Button size="small">
-              <Icon>{openTool ? 'expand_more' : 'expand_less'}</Icon>
-            </Button>
-          </div>
-        </Stack>
-
-        <Box width="100%">
-          <Collapse in={!!openTool}>
-            {openTool === 'Variables' ? (
-              <textarea
-                {...register('variables')}
-                className={styles.editorField}
-              />
-            ) : (
-              <textarea
-                {...register('headers')}
-                className={styles.editorField}
-              />
-            )}
-          </Collapse>
-        </Box>
+        <OptionsEditor
+          invalidJsonErrors={invalidJsonErrors}
+          register={register}
+        ></OptionsEditor>
       </Paper>
     );
   }

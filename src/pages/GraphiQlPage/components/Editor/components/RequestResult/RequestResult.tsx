@@ -5,13 +5,20 @@ import styles from './RequestResults.module.css';
 
 interface IRequestResultProps {
   result?: string;
+  error?: string | null;
 }
 
 export const RequestResult: FC<IRequestResultProps> = memo(
-  ({ result = '' }) => {
+  ({ result = '', error }) => {
     return (
-      <Box className={styles.responseContainer} padding="8px 0">
-        <Typography className={styles.response}>{result}</Typography>
+      <Box className={styles.responseContainer}>
+        {error ? (
+          <Typography color="error" className={styles.response}>
+            {error}
+          </Typography>
+        ) : (
+          <p className={styles.response}>{result}</p>
+        )}
       </Box>
     );
   }
