@@ -23,5 +23,15 @@ export default {
     signUpEnterPasswordPlaceholder: 'Enter password',
     signUpBtnSighIn: 'Sigh In',
     signUpBtnSighUp: 'Sign Up',
+
+    editorGraphQLApiPlaceholder:
+      'Please enter some graphQL api [just for dev, can be deleted in the future]',
+    editorAlertError: 'Error',
+    editorGraphQLUnhandledError: 'Unhandled Graphql error',
+    editorOptionsJsonError:
+      'Json Error in the Options editor, please check the wrong JSON object!',
+
+    optionsEditorVariablesTab: 'Variables',
+    optionsEditorHeadersTab: 'Headers',
   },
 };

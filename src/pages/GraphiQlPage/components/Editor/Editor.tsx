@@ -1,11 +1,13 @@
 import { Alert, Box, Grid, Snackbar, TextField } from '@mui/material';
 import axios from 'axios';
 import { useCallback, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useIntl } from 'react-intl';
+import translate from '../../../../i18n/translate';
+import styles from './Editor.module.css';
 import { RequestEditor } from './components/RequestEditor';
 import { RequestResult } from './components/RequestResult';
 import { IQuery } from './types';
-import styles from './Editor.module.css';
-import { useForm } from 'react-hook-form';
 
 interface GraphQlResponse {
   data: { [key: string]: unknown };
@@ -13,7 +15,6 @@ interface GraphQlResponse {
 }
 
 async function makeRequest(api: string, query: IQuery): Promise<unknown> {
-  const endpoint = 'https://graphqlpokemon.favware.tech/v7';
   const defaultHeaders = {
     'content-type': 'application/json',
   };
@@ -33,8 +34,9 @@ export const Editor = () => {
   const [result, setResult] = useState<string>();
   const [gqlError, setGqlError] = useState<string | null>();
   const [gqlErrorSnackbar, setGqlErrorSnackbar] = useState<boolean>();
-  const { register, watch, getValues } = useForm<{ graphQLApi: string }>();
+  const { register, watch } = useForm<{ graphQLApi: string }>();
   const watchGraphQLApi = watch('graphQLApi');
+  const intl = useIntl();
 
   const handleSendQuery = useCallback(
     (GQLQuery: IQuery) => {
@@ -47,18 +49,23 @@ export const Editor = () => {
           setGqlError(
             err.response?.data?.errors?.[0]?.message ||
               err.message ||
-              'Unhandled Graphql error'
+              intl.formatMessage({ id: 'editorGraphQLUnhandledError' })
           );
           setGqlErrorSnackbar(true);
         });
     },
-    [watchGraphQLApi]
+    [watchGraphQLApi, intl.formatMessage]
   );
 
-  const handleInvalidOptionError = useCallback((hasError: boolean) => {
-    setGqlError(hasError ? 'Json Error in the Options editor' : null);
-    setGqlErrorSnackbar(hasError);
-  }, []);
+  const handleInvalidOptionError = useCallback(
+    (hasError: boolean) => {
+      setGqlError(
+        hasError ? intl.formatMessage({ id: 'editorOptionsJsonError' }) : null
+      );
+      setGqlErrorSnackbar(hasError);
+    },
+    [intl.formatMessage]
+  );
 
   const handleClose = () => {
     setGqlErrorSnackbar(false);
@@ -70,7 +77,7 @@ export const Editor = () => {
         {...register('graphQLApi')}
         label="GraphQLapi"
         variant="outlined"
-        placeholder="Please enter some graphQL api"
+        placeholder={intl.formatMessage({ id: 'editorGraphQLApiPlaceholder' })}
       />
 
       <Box
@@ -97,7 +104,7 @@ export const Editor = () => {
               horizontal: 'right',
             }}
           >
-            <Alert severity="error">Error</Alert>
+            <Alert severity="error">{translate('editorAlertError')}</Alert>
           </Snackbar>
         </Grid>
       </Box>

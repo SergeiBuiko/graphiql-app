@@ -6,6 +6,7 @@ import { IInvalidJsonError, OptionTabValue } from '../../types';
 import { OptionTab } from '../OptionTab';
 import { IEditorForm } from '../RequestEditor/RequestEditor';
 import styles from './OptionsEditor.module.css';
+import translate from '../../../../../../i18n/translate';
 
 type OptionsEditorProps = {
   invalidJsonErrors: IInvalidJsonError;
@@ -27,14 +28,14 @@ export const OptionsEditor: FC<OptionsEditorProps> = memo(
             isActive={activeOption === OptionTabValue.Variables}
             error={invalidJsonErrors[OptionTabValue.Variables] || null}
           >
-            Variables
+            {translate('optionsEditorVariablesTab')}
           </OptionTab>
           <OptionTab
             toggleOption={toggleOption(OptionTabValue.Headers)}
             isActive={activeOption === OptionTabValue.Headers}
             error={invalidJsonErrors[OptionTabValue.Headers] || null}
           >
-            Headers
+            {translate('optionsEditorHeadersTab')}
           </OptionTab>
           <div
             className={styles.expandBtn}
