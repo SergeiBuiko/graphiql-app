@@ -24,5 +24,16 @@ export default {
     signUpEnterPasswordPlaceholder: 'Введите пароль',
     signUpBtnSighIn: 'Войти',
     signUpBtnSighUp: 'Регистрация',
+
+    editorGraphQLApiPlaceholder:
+      'Пожалуйста введите graphQL api [может быть удалено после реализации документации]',
+    editorAlertError: 'Ошибка',
+    editorGraphQLUnhandledError:
+      'Произошла ошибка при обработке Graphql запроса',
+    editorOptionsJsonError:
+      'Ошибка формирования JSON опций запроса, необходимо исправить на корректный JSON объект!',
+
+    optionsEditorVariablesTab: 'Переменные',
+    optionsEditorHeadersTab: 'Заголовки',
   },
 };
