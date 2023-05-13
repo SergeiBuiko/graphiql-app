@@ -37,11 +37,13 @@ export function App() {
       <div className={styles['main-page__container']}>
         <Navigation />
 
-        <Routes>
-          <Route path="/" element={<WelcomePage />} />
-          <Route path="/GraphiQL" element={<GraphiQlPage />} />
-          <Route path="/account" element={<AccountPage />} />
-        </Routes>
+        <div className={styles.content}>
+          <Routes>
+            <Route path="/" element={<WelcomePage />} />
+            <Route path="/GraphiQL" element={<GraphiQlPage />} />
+            <Route path="/account" element={<AccountPage />} />
+          </Routes>
+        </div>
         <Footer />
       </div>
     </I18nProvider>
