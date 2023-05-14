@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import styles from './App.module.css';
 import { WelcomePage } from './pages/WelcomePage/WelcomePage';
 import { AccountPage, GraphiQlPage } from './pages';
@@ -6,9 +6,20 @@ import { useState } from 'react';
 import { I18nProvider, LOCALES } from './i18n';
 import translate from './i18n/translate';
 import { Footer, Navigation } from './components';
+import { useAppSelector } from './store/hooks';
+import * as React from 'react';
+
+interface PrivateRouteProps {
+  element: JSX.Element;
+}
 
 export function App() {
   const [locale, setLocal] = useState(LOCALES.ENGLISH);
+  const isAuth = useAppSelector((state) => state.authentication.userEmail);
+
+  const PrivateRoute = ({ element }: PrivateRouteProps) => {
+    return isAuth ? <>{element}</> : <Navigate to="/" replace={true} />;
+  };
 
   return (
     <I18nProvider locale={locale}>
@@ -16,7 +27,9 @@ export function App() {
         {translate('hello')}
         <div className={styles.buttonWrapper}>
           <button
-            className={styles.button}
+            className={`${styles.button} ${
+              locale === LOCALES.ENGLISH ? styles.active : ''
+            }`}
             onClick={() => {
               setLocal(LOCALES.ENGLISH);
             }}
@@ -24,7 +37,9 @@ export function App() {
             En
           </button>
           <button
-            className={styles.button}
+            className={`${styles.button} ${
+              locale === LOCALES.RUSSIAN ? styles.active : ''
+            }`}
             onClick={() => {
               setLocal(LOCALES.RUSSIAN);
             }}
@@ -40,7 +55,10 @@ export function App() {
         <div className={styles.content}>
           <Routes>
             <Route path="/" element={<WelcomePage />} />
-            <Route path="/GraphiQL" element={<GraphiQlPage />} />
+            <Route
+              path="/GraphiQL"
+              element={<PrivateRoute element={<GraphiQlPage />} />}
+            />
             <Route path="/account" element={<AccountPage />} />
           </Routes>
         </div>
