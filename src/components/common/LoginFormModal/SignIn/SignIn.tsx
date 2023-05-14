@@ -65,7 +65,7 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
       .then((userCredential) => {
         userEmailHandler(userCredential.user.email);
         reset();
-        navigate('/');
+        navigate('/GraphiQL');
       })
       .catch((error) => {
         if (error.code === 'auth/wrong-password') {
