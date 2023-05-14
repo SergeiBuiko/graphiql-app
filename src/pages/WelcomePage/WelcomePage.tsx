@@ -2,9 +2,22 @@ import styles from './WelcomePage.module.css';
 import { Button } from '../../components/common/Button';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks';
+import translate from './../../i18n/translate';
+import { useIntl } from 'react-intl';
 
 export function WelcomePage() {
   const isAuth = useAppSelector((state) => state.authentication.userEmail);
+  const intl = useIntl();
+
+  const buttonSignIn = intl.formatMessage({
+    id: 'welcomePageBtnSighIn',
+  });
+  const buttonSignUp = intl.formatMessage({
+    id: 'welcomePageBtnSighUp',
+  });
+  const buttonGoToEditor = intl.formatMessage({
+    id: 'welcomePageBtnGoToEditor',
+  });
 
   return (
     <div className={styles.pageWrapper}>
@@ -12,26 +25,24 @@ export function WelcomePage() {
         <div className={styles.infoWrapper}>
           <h2 className={styles.title}>
             {!isAuth
-              ? 'Get started by creating an account or logging in'
-              : 'Welcome back! Your session is active'}
+              ? translate('welcomePageTitleNotIsAuth')
+              : translate('welcomePageTitleIsAuth')}
           </h2>
-          <p className={styles.subtitle}>
-            Let&apos;s get started with the GraphiQL App
-          </p>
+          <p className={styles.subtitle}>{translate('welcomePageSubtitle')}</p>
         </div>
 
         {!isAuth ? (
           <div className={styles.buttonsWrapper}>
             <Link to={`/account?auth=sign-in`} className={styles.linkButton}>
-              <Button text={'Sign In'} />
+              <Button text={buttonSignIn} />
             </Link>
             <Link to={`/account?auth=sign-up`} className={styles.linkButton}>
-              <Button text={'Sign Up'} />
+              <Button text={buttonSignUp} />
             </Link>
           </div>
         ) : (
           <Link to={`/GraphiQL`} className={styles.linkButton}>
-            <Button text={'Go To Editor'} />
+            <Button text={buttonGoToEditor} />
           </Link>
         )}
       </div>

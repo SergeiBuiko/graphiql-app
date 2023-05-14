@@ -10,16 +10,12 @@ import { Button } from '../../Button';
 import { useNavigate } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 
-interface SignUpProps {
-  closeFormModal?: () => void;
-}
-
 interface FormData {
   email: string;
   password: string;
 }
 
-export const SignUp = ({ closeFormModal }: SignUpProps) => {
+export const SignUp = () => {
   const {
     register,
     formState: { errors },
@@ -46,6 +42,21 @@ export const SignUp = ({ closeFormModal }: SignUpProps) => {
   });
   const buttonSignUp = intl.formatMessage({
     id: 'signUpBtnSighUp',
+  });
+  const errRequired = intl.formatMessage({
+    id: 'errRequired',
+  });
+  const errMinLength = intl.formatMessage({
+    id: 'errMinLength',
+  });
+  const errAtLeastOneLetter = intl.formatMessage({
+    id: 'errAtLeastOneLetter',
+  });
+  const errAtLeastOneDigit = intl.formatMessage({
+    id: 'errAtLeastOneDigit',
+  });
+  const errSpecialCharacter = intl.formatMessage({
+    id: 'errSpecialCharacter',
   });
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -82,7 +93,7 @@ export const SignUp = ({ closeFormModal }: SignUpProps) => {
         {...register('email', {
           required: {
             value: true,
-            message: '* This field is required',
+            message: errRequired,
           },
         })}
         error={errors?.email?.message}
@@ -94,23 +105,19 @@ export const SignUp = ({ closeFormModal }: SignUpProps) => {
         {...register('password', {
           required: {
             value: true,
-            message: '* This field is required',
+            message: errRequired,
           },
           minLength: {
             value: 8,
-            message: '* This field must have at least 8 letters',
+            message: errMinLength,
           },
           validate: {
             atLeastOneLetter: (value) =>
-              /[a-zA-Z]/.test(value) ||
-              '* This field must contain at least one letter',
+              /[a-zA-Z]/.test(value) || errAtLeastOneLetter,
 
-            atLeastOneDigit: (value) =>
-              /\d/.test(value) ||
-              '* This field must contain at least one digit',
+            atLeastOneDigit: (value) => /\d/.test(value) || errAtLeastOneDigit,
             specialCharacter: (value) =>
-              /[!@#$%^&*(),.?":{}|<>]/.test(value) ||
-              '* This field must contain at least one special character',
+              /[!@#$%^&*(),.?":{}|<>]/.test(value) || errSpecialCharacter,
           },
         })}
         error={errors?.password?.message}

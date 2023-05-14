@@ -33,5 +33,20 @@ export default {
 
     optionsEditorVariablesTab: 'Variables',
     optionsEditorHeadersTab: 'Headers',
+
+    welcomePageTitleNotIsAuth:
+      'Get started by creating an account or logging in',
+    welcomePageTitleIsAuth: 'Welcome back! Your session is active',
+    welcomePageSubtitle: "Let's get started with the GraphiQL App",
+    welcomePageBtnSighIn: 'Sigh In',
+    welcomePageBtnSighUp: 'Sign Up',
+    welcomePageBtnGoToEditor: 'Go To Editor',
+
+    errRequired: '* This field is required',
+    errMinLength: '* This field must have at least 8 letters',
+    errAtLeastOneLetter: '* This field must contain at least one letter',
+    errAtLeastOneDigit: '* This field must contain at least one digit',
+    errSpecialCharacter:
+      '* This field must contain at least one special character',
   },
 };
