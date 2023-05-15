@@ -10,16 +10,12 @@ import { setUserEmail } from '../../../../store/slices/AuthenticationSlice';
 import { useNavigate } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 
-interface SignInProps {
-  closeFormModal?: () => void;
-}
-
 interface FormData {
   email: string;
   password: string;
 }
 
-export const SignIn = ({ closeFormModal }: SignInProps) => {
+export const SignIn = () => {
   const {
     register,
     formState: { errors },
@@ -50,6 +46,12 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
   const buttonSignIn = intl.formatMessage({
     id: 'signUpBtnSighIn',
   });
+  const errRequired = intl.formatMessage({
+    id: 'errRequired',
+  });
+  const errMinLength = intl.formatMessage({
+    id: 'errMinLength',
+  });
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
@@ -65,7 +67,7 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
       .then((userCredential) => {
         userEmailHandler(userCredential.user.email);
         reset();
-        navigate('/');
+        navigate('/GraphiQL');
       })
       .catch((error) => {
         if (error.code === 'auth/wrong-password') {
@@ -87,7 +89,7 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
         {...register('email', {
           required: {
             value: true,
-            message: '* This field is required',
+            message: errRequired,
           },
         })}
         error={errors?.email?.message}
@@ -99,11 +101,11 @@ export const SignIn = ({ closeFormModal }: SignInProps) => {
         {...register('password', {
           required: {
             value: true,
-            message: '* This field is required',
+            message: errRequired,
           },
           minLength: {
             value: 8,
-            message: '* This field must have at least 8 letters',
+            message: errMinLength,
           },
         })}
         error={errors?.password?.message}

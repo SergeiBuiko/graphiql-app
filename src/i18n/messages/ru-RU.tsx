@@ -35,5 +35,20 @@ export default {
 
     optionsEditorVariablesTab: 'Переменные',
     optionsEditorHeadersTab: 'Заголовки',
+
+    welcomePageTitleNotIsAuth:
+      'Начните с создания учетной записи или авторизации',
+    welcomePageTitleIsAuth: 'Добро пожаловать! Ваша сессия активна',
+    welcomePageSubtitle: 'Начните работу с приложением GraphiQL',
+    welcomePageBtnSighIn: 'Войти',
+    welcomePageBtnSighUp: 'Регистрация',
+    welcomePageBtnGoToEditor: 'Перейти к редактору',
+
+    errRequired: '* Это поле обязательно к заполнению',
+    errMinLength: '* В этом поле должно быть не менее 8 букв',
+    errAtLeastOneLetter: '* Это поле должно содержать хотя бы одну букву',
+    errAtLeastOneDigit: '* Это поле должно содержать хотя бы одну цифру',
+    errSpecialCharacter:
+      '* Это поле должно содержать хотя бы один специальный символ',
   },
 };
