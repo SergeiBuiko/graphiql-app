@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
-
+import { Character } from './character';
 export function Documentation() {
   const [schema, setSchema] = useState<any>();
 
@@ -129,22 +129,8 @@ export function Documentation() {
   return (
     <div>
       <button onClick={showGraphQLData}>Show Schema</button>
-      {schema?.data.__schema.directives.map((el: any, id: any) => (
-        <div>
-          <ul key={id}>
-            <li>
-              <a href="" style={{ color: 'red' }}>
-                {el.name}
-              </a>
-            </li>
-            <li>
-              <a href="" style={{ color: 'green' }}>
-                {el.description}
-              </a>
-            </li>
-          </ul>
-        </div>
-      ))}
+      {schema && <p>{`${schema.data.__schema.queryType.name} : `}</p>}
+      <Character schema={schema} />
     </div>
   );
 }
