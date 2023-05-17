@@ -120,7 +120,6 @@ export function Documentation() {
       .then((response) => {
         return response.json();
       })
-      // .then((data) => console.log(data.data.__schema.queryType))
       .then((data) => setSchema(data));
   };
 
