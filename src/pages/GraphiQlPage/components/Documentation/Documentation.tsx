@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
-import { Character } from './character';
+import { useState, useEffect } from 'react';
+import { QueryFields } from './Query';
+
 export function Documentation() {
   const [schema, setSchema] = useState<any>();
+  const [isShown, setIsShown] = useState(false);
+  const [queryShow, setQueryShow] = useState(false);
 
+  const toggleFIeldset = () => setIsShown(!isShown);
   const showGraphQLData = () => {
     const query = `#graphql
       query IntrospectionQuery {
@@ -125,11 +129,32 @@ export function Documentation() {
 
   console.log(schema);
 
+  useEffect(() => {
+    showGraphQLData();
+  }, []);
+
   return (
     <div>
-      <button onClick={showGraphQLData}>Show Schema</button>
-      {schema && <p>{`${schema.data.__schema.queryType.name} : `}</p>}
-      <Character schema={schema} />
+      <button onClick={toggleFIeldset}>Docs</button>
+
+      {isShown && (
+        <div>
+          <p>
+            A GraphQL schema provides a root type for each kind of operation.
+          </p>
+          {`${schema.data.__schema.queryType.name} : `}
+          <a
+            href="#"
+            onClick={(event) => {
+              event.preventDefault();
+              setQueryShow(!queryShow);
+            }}
+          >
+            Query
+          </a>
+        </div>
+      )}
+      {queryShow && isShown && <QueryFields schema={schema} />}
     </div>
   );
 }
