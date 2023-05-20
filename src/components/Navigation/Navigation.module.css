@@ -25,7 +25,7 @@
   width: 50px;
 }
 
-@media screen and (max-width: 850px) and (min-width: 700px) {
+/* @media screen and (max-width: 850px) and (min-width: 700px) {
   .navigation-container {
     font-size: medium;
   }
@@ -74,7 +74,7 @@
   .logo-main {
     display: none;
   }
-}
+} */
 
 .buttonWrapper {
   display: flex;
@@ -85,4 +85,8 @@
 
 .linkButton {
   text-decoration: none;
+}
+
+.navLinks {
+  flex-grow: 1;
 }

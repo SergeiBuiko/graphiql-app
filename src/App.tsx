@@ -38,34 +38,33 @@ export function App() {
 
   return (
     <I18nProvider locale={locale}>
-      <div className={styles.lang}>
-        {translate('hello')}
-        <div className={styles.buttonWrapper}>
-          <button
-            className={`${styles.button} ${
-              locale === LOCALES.ENGLISH ? styles.active : ''
-            }`}
-            onClick={() => {
-              setLocal(LOCALES.ENGLISH);
-            }}
-          >
-            En
-          </button>
-          <button
-            className={`${styles.button} ${
-              locale === LOCALES.RUSSIAN ? styles.active : ''
-            }`}
-            onClick={() => {
-              setLocal(LOCALES.RUSSIAN);
-            }}
-          >
-            Ru
-          </button>
-        </div>
-      </div>
-
       <div className={styles['main-page__container']}>
         <Navigation />
+        <div className={styles.lang}>
+          {translate('hello')}
+          <div className={styles.buttonWrapper}>
+            <button
+              className={`${styles.button} ${
+                locale === LOCALES.ENGLISH ? styles.active : ''
+              }`}
+              onClick={() => {
+                setLocal(LOCALES.ENGLISH);
+              }}
+            >
+              En
+            </button>
+            <button
+              className={`${styles.button} ${
+                locale === LOCALES.RUSSIAN ? styles.active : ''
+              }`}
+              onClick={() => {
+                setLocal(LOCALES.RUSSIAN);
+              }}
+            >
+              Ru
+            </button>
+          </div>
+        </div>
 
         <div className={styles.content}>
           <Routes>
