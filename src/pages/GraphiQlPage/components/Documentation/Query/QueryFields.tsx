@@ -1,29 +1,69 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { useState } from 'react';
+import { useState } from 'react';
 import { ElementDetails } from '../ElementDetails';
 
-interface IChemaProps {
-  schema: any;
+interface ISchemaProps {
+  schema?: any;
 }
+export function QueryFields({ schema }: ISchemaProps) {
+  const [pathArray, setPathArray] = useState<string[]>([]);
+  // const [pathArray1, setPathArray1] = useState<object[]>([
+  //   {
+  //     name: '',
+  //     type: query | query.type,
+  //   },
+  // ]);
 
-export function QueryFields({ schema }: IChemaProps) {
-  // const [array, setArray] = useState<string[]>([]);
+  console.log('Массив состоит из: ' + pathArray);
 
-  // const pushData = (newArray: string[]) => {
-  //   return newArray;
-  // };
+  const query = schema?.data.__schema.types.find(
+    (el: any) => el.name === pathArray[pathArray.length - 1]
+  );
 
-  const path = schema?.data.__schema.types[0].fields;
-  const queryPath = schema?.data.__schema.types[0].fields;
+  // console.log(query);
+
+  const addPath = (name: string) => {
+    setPathArray((prevState) => [...prevState, name]);
+  };
+
+  const onBack = () => {
+    setPathArray((prevState) => {
+      const newArray = [...prevState];
+      newArray.pop();
+      // console.log(newArray);
+
+      return newArray;
+    });
+  };
+
+  if (!pathArray.length) {
+    return (
+      <div>
+        <p>A GraphQL schema provides a root type for each kind of operation.</p>
+        {`${schema?.data.__schema.queryType.name} : `}
+        <a
+          href="#"
+          onClick={(event) => {
+            event.preventDefault();
+            setPathArray([schema?.data.__schema.types[0].name]);
+          }}
+        >
+          Query
+        </a>
+      </div>
+    );
+  }
 
   return (
     <div>
-      {path.map((el: any, id: any) => (
+      {!!pathArray.length && (
+        <button onClick={onBack}>{pathArray[pathArray.length - 1]}</button>
+      )}
+      {query.fields?.map((el: any, id: any) => (
         <div key={id}>
-          <ElementDetails schema={schema} element={el.name} path={path} />
+          <ElementDetails el={el} addPath={addPath} />
         </div>
       ))}
-      <ElementDetails schema={schema} element="Character" path={queryPath} />
     </div>
   );
 }

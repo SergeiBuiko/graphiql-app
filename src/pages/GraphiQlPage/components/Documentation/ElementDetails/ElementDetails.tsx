@@ -1,39 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
 
-interface IChemaProps {
-  schema: any;
-  element: string;
-  path: any;
+interface ISchemaProps {
+  el?: any;
+  addPath: (name: string) => void;
 }
 
-export function ElementDetails({ schema, element, path }: IChemaProps) {
-  const [show, setShow] = useState(true);
-
-  const elem = path.filter((el: any) => el.name === element);
-
+export function ElementDetails({ el, addPath }: ISchemaProps) {
   return (
     <div>
-      {elem.map((el: any, id: any) => (
-        <div key={id}>
-          <a
-            href="#"
-            onClick={(event) => {
-              event.preventDefault();
-              setShow(!show);
-            }}
-          >
-            {el.name}
-          </a>
-          <p>{el.description}</p>
-          {!show && (
-            <div>
-              <p>{el.name}</p>
-              <p>{el.description}</p>
-            </div>
-          )}
-        </div>
-      ))}
+      <a
+        href="#"
+        onClick={(event) => {
+          event.preventDefault();
+          addPath(el.type.name);
+        }}
+      >
+        {el.name}
+      </a>
+      <p>{el.description}</p>
     </div>
   );
 }

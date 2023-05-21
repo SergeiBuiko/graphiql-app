@@ -5,7 +5,6 @@ import { QueryFields } from './Query';
 export function Documentation() {
   const [schema, setSchema] = useState<any>();
   const [isShown, setIsShown] = useState(false);
-  const [queryShow, setQueryShow] = useState(false);
 
   const toggleFIeldset = () => setIsShown(!isShown);
   const showGraphQLData = () => {
@@ -137,24 +136,7 @@ export function Documentation() {
     <div>
       <button onClick={toggleFIeldset}>Docs</button>
 
-      {isShown && (
-        <div>
-          <p>
-            A GraphQL schema provides a root type for each kind of operation.
-          </p>
-          {`${schema.data.__schema.queryType.name} : `}
-          <a
-            href="#"
-            onClick={(event) => {
-              event.preventDefault();
-              setQueryShow(!queryShow);
-            }}
-          >
-            Query
-          </a>
-        </div>
-      )}
-      {queryShow && isShown && <QueryFields schema={schema} />}
+      {isShown && <QueryFields schema={schema} />}
     </div>
   );
 }
