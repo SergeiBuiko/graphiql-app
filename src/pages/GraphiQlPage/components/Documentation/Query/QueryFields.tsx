@@ -2,41 +2,70 @@
 import { useState } from 'react';
 import { ElementDetails } from '../ElementDetails';
 
+enum TYPE {
+  query = 'query',
+  queryType = 'queryType',
+}
+
 interface ISchemaProps {
   schema?: any;
 }
+
+interface IArrayProps {
+  name: string;
+  type: TYPE;
+}
+
 export function QueryFields({ schema }: ISchemaProps) {
-  const [pathArray, setPathArray] = useState<string[]>([]);
-  // const [pathArray1, setPathArray1] = useState<object[]>([
-  //   {
-  //     name: '',
-  //     type: query | query.type,
-  //   },
-  // ]);
+  const [schemaArray, setschemaArray] = useState<IArrayProps[]>([]);
 
-  console.log('Массив состоит из: ' + pathArray);
-
-  const query = schema?.data.__schema.types.find(
-    (el: any) => el.name === pathArray[pathArray.length - 1]
+  const lastElementAtType = schema?.data.__schema.types.find(
+    (el: any) => el.name === schemaArray[schemaArray.length - 1]?.name
   );
 
-  // console.log(query);
+  const lastElementAtName = schema.data.__schema.types[0].fields.find(
+    (el: any) => el.name === schemaArray[schemaArray.length - 1]?.name
+  );
 
-  const addPath = (name: string) => {
-    setPathArray((prevState) => [...prevState, name]);
+  console.log(
+    schema?.data.__schema.types.find(
+      (el: any) => el.name === schemaArray[schemaArray.length - 1]?.name
+    )
+  );
+
+  console.log(lastElementAtType);
+  console.log(lastElementAtType?.name);
+
+  // console.log('Массив: ' + schemaArray);
+
+  // console.log('Последний элемент массива по имени: ' + lastElementAtName?.name);
+
+  // console.log('Последний элемент массива по типу: ' + lastElementAtType?.name);
+
+  const addType = (name: string) => {
+    setschemaArray((prevState) => [
+      ...prevState,
+      { name: name, type: TYPE.query },
+    ]);
+  };
+
+  const addName = (name: string) => {
+    setschemaArray((prevState) => [
+      ...prevState,
+      { name: name, type: TYPE.queryType },
+    ]);
+    // console.log(name);
   };
 
   const onBack = () => {
-    setPathArray((prevState) => {
+    setschemaArray((prevState) => {
       const newArray = [...prevState];
       newArray.pop();
-      // console.log(newArray);
-
       return newArray;
     });
   };
 
-  if (!pathArray.length) {
+  if (!schemaArray.length) {
     return (
       <div>
         <p>A GraphQL schema provides a root type for each kind of operation.</p>
@@ -45,7 +74,7 @@ export function QueryFields({ schema }: ISchemaProps) {
           href="#"
           onClick={(event) => {
             event.preventDefault();
-            setPathArray([schema?.data.__schema.types[0].name]);
+            setschemaArray([schema?.data.__schema.types[0].name]);
           }}
         >
           Query
@@ -54,14 +83,35 @@ export function QueryFields({ schema }: ISchemaProps) {
     );
   }
 
+  if (schemaArray[schemaArray.length - 1]?.type === TYPE.queryType) {
+    return (
+      <div>
+        {!!schemaArray.length && (
+          <button onClick={onBack}>
+            {schemaArray[schemaArray.length - 1].name}
+          </button>
+        )}
+        <div>
+          <p>
+            {lastElementAtName.type.name || lastElementAtName.type.ofType.name}
+          </p>
+          <p>{lastElementAtName.description}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
-      {!!pathArray.length && (
-        <button onClick={onBack}>{pathArray[pathArray.length - 1]}</button>
+      {schemaArray[schemaArray.length - 1]?.type === TYPE.query && (
+        <button onClick={onBack}>
+          {schemaArray[schemaArray.length - 1].name}
+        </button>
       )}
-      {query.fields?.map((el: any, id: any) => (
+
+      {lastElementAtType?.fields.map((el: any, id: any) => (
         <div key={id}>
-          <ElementDetails el={el} addPath={addPath} />
+          <ElementDetails el={el} addType={addType} addName={addName} />
         </div>
       ))}
     </div>

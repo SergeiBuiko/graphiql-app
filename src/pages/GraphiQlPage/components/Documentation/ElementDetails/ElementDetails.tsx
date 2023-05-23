@@ -2,20 +2,31 @@
 
 interface ISchemaProps {
   el?: any;
-  addPath: (name: string) => void;
+  addType: (name: string) => void;
+  addName: (name: string) => void;
 }
 
-export function ElementDetails({ el, addPath }: ISchemaProps) {
+export function ElementDetails({ el, addType, addName }: ISchemaProps) {
   return (
     <div>
       <a
         href="#"
         onClick={(event) => {
           event.preventDefault();
-          addPath(el.type.name);
+          addName(el.name);
         }}
       >
         {el.name}
+      </a>{' '}
+      :{' '}
+      <a
+        href="#"
+        onClick={(event) => {
+          event.preventDefault();
+          addType(el.type.name);
+        }}
+      >
+        {el.type.name}
       </a>
       <p>{el.description}</p>
     </div>
