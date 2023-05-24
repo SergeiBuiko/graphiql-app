@@ -19,6 +19,7 @@ interface IArrayProps {
 
 export function QueryFields({ schema }: ISchemaProps) {
   const [schemaArray, setschemaArray] = useState<IArrayProps[]>([]);
+  console.log(schemaArray);
 
   const lastElementAtType = schema?.data.__schema.types.find(
     (el: any) => el.name === schemaArray[schemaArray.length - 1]?.name

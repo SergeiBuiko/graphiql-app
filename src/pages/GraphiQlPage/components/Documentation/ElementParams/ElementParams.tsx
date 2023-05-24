@@ -8,7 +8,6 @@ interface IParamsProps {
 export function ElementParams({ el, addParams }: IParamsProps) {
   return (
     <span>
-      (
       {el.args?.map((elem: any, id: number) => (
         <span key={id}>
           <span>{elem.name}</span> :
@@ -16,14 +15,23 @@ export function ElementParams({ el, addParams }: IParamsProps) {
             href="#"
             onClick={(event) => {
               event.preventDefault();
-              addParams(elem.type?.name);
+              addParams(
+                elem.type?.name
+                  ? elem.type?.name
+                  : elem.type?.ofType?.name
+                  ? elem.type?.ofType?.name
+                  : elem.type?.ofType?.ofType?.ofType?.name
+              );
             }}
           >
-            {elem.type?.name}
+            {elem.type?.name
+              ? elem.type?.name
+              : elem.type?.ofType?.name
+              ? elem.type?.ofType?.name
+              : elem.type?.ofType?.ofType?.ofType?.name}
           </a>{' '}
         </span>
       ))}
-      )
     </span>
   );
 }
