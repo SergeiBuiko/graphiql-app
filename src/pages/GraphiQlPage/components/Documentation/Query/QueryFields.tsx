@@ -5,6 +5,7 @@ import { ElementDetails } from '../ElementDetails';
 enum TYPE {
   query = 'query',
   queryType = 'queryType',
+  queryParams = 'queryParams',
 }
 
 interface ISchemaProps {
@@ -27,21 +28,6 @@ export function QueryFields({ schema }: ISchemaProps) {
     (el: any) => el.name === schemaArray[schemaArray.length - 1]?.name
   );
 
-  console.log(
-    schema?.data.__schema.types.find(
-      (el: any) => el.name === schemaArray[schemaArray.length - 1]?.name
-    )
-  );
-
-  console.log(lastElementAtType);
-  console.log(lastElementAtType?.name);
-
-  // console.log('Массив: ' + schemaArray);
-
-  // console.log('Последний элемент массива по имени: ' + lastElementAtName?.name);
-
-  // console.log('Последний элемент массива по типу: ' + lastElementAtType?.name);
-
   const addType = (name: string) => {
     setschemaArray((prevState) => [
       ...prevState,
@@ -54,7 +40,13 @@ export function QueryFields({ schema }: ISchemaProps) {
       ...prevState,
       { name: name, type: TYPE.queryType },
     ]);
-    // console.log(name);
+  };
+
+  const addParams = (name: string) => {
+    setschemaArray((prevState) => [
+      ...prevState,
+      { name: name, type: TYPE.queryParams },
+    ]);
   };
 
   const onBack = () => {
@@ -74,7 +66,9 @@ export function QueryFields({ schema }: ISchemaProps) {
           href="#"
           onClick={(event) => {
             event.preventDefault();
-            setschemaArray([schema?.data.__schema.types[0].name]);
+            setschemaArray([
+              { name: schema?.data.__schema.types[0].name, type: TYPE.query },
+            ]);
           }}
         >
           Query
@@ -101,6 +95,18 @@ export function QueryFields({ schema }: ISchemaProps) {
     );
   }
 
+  if (schemaArray[schemaArray.length - 1]?.type === TYPE.queryParams) {
+    return (
+      <div>
+        <button onClick={onBack}>
+          {schemaArray[schemaArray.length - 1].name}
+        </button>
+        <p>{lastElementAtType?.name}</p>
+        <p>{lastElementAtType?.description}</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       {schemaArray[schemaArray.length - 1]?.type === TYPE.query && (
@@ -109,9 +115,14 @@ export function QueryFields({ schema }: ISchemaProps) {
         </button>
       )}
 
-      {lastElementAtType?.fields.map((el: any, id: any) => (
+      {lastElementAtType?.fields?.map((el: any, id: number) => (
         <div key={id}>
-          <ElementDetails el={el} addType={addType} addName={addName} />
+          <ElementDetails
+            el={el}
+            addType={addType}
+            addName={addName}
+            addParams={addParams}
+          />
         </div>
       ))}
     </div>

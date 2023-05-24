@@ -1,1 +1,0 @@
-export { ElementType } from './ElementType';
