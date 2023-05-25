@@ -20,6 +20,8 @@ export function ElementParams({ el, addParams }: IParamsProps) {
                   ? elem.type?.name
                   : elem.type?.ofType?.name
                   ? elem.type?.ofType?.name
+                  : elem.type?.ofType?.ofType?.name
+                  ? elem.type?.ofType?.ofType?.name
                   : elem.type?.ofType?.ofType?.ofType?.name
               );
             }}
@@ -28,6 +30,8 @@ export function ElementParams({ el, addParams }: IParamsProps) {
               ? elem.type?.name
               : elem.type?.ofType?.name
               ? elem.type?.ofType?.name
+              : elem.type?.ofType?.ofType?.name
+              ? elem.type?.ofType?.ofType?.name
               : elem.type?.ofType?.ofType?.ofType?.name}
           </a>{' '}
         </span>

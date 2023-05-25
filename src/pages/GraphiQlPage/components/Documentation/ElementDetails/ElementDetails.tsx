@@ -32,10 +32,20 @@ export function ElementDetails({
           href="#"
           onClick={(event) => {
             event.preventDefault();
-            addType(el.type.name ? el.type.name : el.type.ofType.name);
+            addType(
+              el.type.name
+                ? el.type.name
+                : el.type.ofType.name
+                ? el.type.ofType.name
+                : el.type.ofType.ofType.name
+            );
           }}
         >
-          {el.type.name ? el.type.name : el.type.ofType.name}
+          {el.type.name
+            ? el.type.name
+            : el.type.ofType.name
+            ? el.type.ofType.name
+            : el.type.ofType.ofType.name}
         </a>
       </span>
       <p>{el.description}</p>

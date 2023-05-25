@@ -24,11 +24,12 @@ export function QueryFields({ schema }: ISchemaProps) {
   const lastElementAtType = schema?.data.__schema.types.find(
     (el: any) => el.name === schemaArray[schemaArray.length - 1]?.name
   );
+  console.log('Тип : ' + lastElementAtType);
 
   const lastElementAtName = schema.data.__schema.types[0].fields.find(
     (el: any) => el.name === schemaArray[schemaArray.length - 1]?.name
   );
-
+  console.log(lastElementAtName);
   const addType = (name: string) => {
     setschemaArray((prevState) => [
       ...prevState,
@@ -103,6 +104,20 @@ export function QueryFields({ schema }: ISchemaProps) {
           {schemaArray[schemaArray.length - 1].name}
         </button>
         <p>{lastElementAtType?.name}</p>
+        {lastElementAtType?.inputFields?.map((el: any, id: number) => (
+          <p key={id}>
+            <span>{el.name}</span> :{' '}
+            <a
+              href="#"
+              onClick={(event) => {
+                event.preventDefault();
+                addType(el.type?.name);
+              }}
+            >
+              {el.type?.name}
+            </a>
+          </p>
+        ))}
         <p>{lastElementAtType?.description}</p>
       </div>
     );
@@ -115,7 +130,10 @@ export function QueryFields({ schema }: ISchemaProps) {
           {schemaArray[schemaArray.length - 1].name}
         </button>
       )}
-
+      <div>
+        <p>{lastElementAtType.name}</p>
+        <p>{lastElementAtType.description}</p>
+      </div>
       {lastElementAtType?.fields?.map((el: any, id: number) => (
         <div key={id}>
           <ElementDetails
