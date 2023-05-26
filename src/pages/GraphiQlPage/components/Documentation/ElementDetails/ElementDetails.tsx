@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { Link } from '@mui/material';
 import { ElementParams } from '../ElementParams';
+import styles from './ElementDetails.module.css';
 
 interface ISchemaProps {
   el?: any;
@@ -17,7 +19,8 @@ export function ElementDetails({
 }: ISchemaProps) {
   return (
     <div>
-      <a
+      <Link
+        underline="hover"
         href="#"
         onClick={(event) => {
           event.preventDefault();
@@ -25,10 +28,13 @@ export function ElementDetails({
         }}
       >
         {el.name}
-      </a>{' '}
+      </Link>{' '}
       <ElementParams addParams={addParams} el={el} /> :
       <span>
-        <a
+        <Link
+          // className={styles.link}
+          style={{ color: 'orange' }}
+          underline="hover"
           href="#"
           onClick={(event) => {
             event.preventDefault();
@@ -46,7 +52,7 @@ export function ElementDetails({
             : el.type.ofType.name
             ? el.type.ofType.name
             : el.type.ofType.ofType.name}
-        </a>
+        </Link>
       </span>
       <p>{el.description}</p>
     </div>

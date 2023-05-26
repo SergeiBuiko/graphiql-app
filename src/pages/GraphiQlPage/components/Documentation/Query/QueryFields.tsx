@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { ElementDetails } from '../ElementDetails';
+import { Link } from '@mui/material';
+import styles from './QueryFields.module.css';
 
 enum TYPE {
   query = 'query',
@@ -29,7 +31,15 @@ export function QueryFields({ schema }: ISchemaProps) {
   const lastElementAtName = schema.data.__schema.types[0].fields.find(
     (el: any) => el.name === schemaArray[schemaArray.length - 1]?.name
   );
-  console.log(lastElementAtName);
+
+  const elem = schema?.data.__schema.types.find(
+    (el: any) => el.name === schemaArray[schemaArray.length - 2]?.name
+  );
+
+  const elem2 = elem?.fields.find(
+    (el: any) => el.name === schemaArray[schemaArray.length - 1]?.name
+  );
+
   const addType = (name: string) => {
     setschemaArray((prevState) => [
       ...prevState,
@@ -64,7 +74,8 @@ export function QueryFields({ schema }: ISchemaProps) {
       <div>
         <p>A GraphQL schema provides a root type for each kind of operation.</p>
         {`${schema?.data.__schema.queryType.name} : `}
-        <a
+        <Link
+          underline="hover"
           href="#"
           onClick={(event) => {
             event.preventDefault();
@@ -74,7 +85,7 @@ export function QueryFields({ schema }: ISchemaProps) {
           }}
         >
           Query
-        </a>
+        </Link>
       </div>
     );
   }
@@ -83,16 +94,27 @@ export function QueryFields({ schema }: ISchemaProps) {
     return (
       <div>
         {!!schemaArray.length && (
-          <button onClick={onBack}>
-            {schemaArray[schemaArray.length - 1].name}
-          </button>
+          <Link component="button" onClick={onBack}>
+            {schemaArray[schemaArray.length - 2]
+              ? `< ${schemaArray[schemaArray.length - 2].name}`
+              : '< Docs'}
+          </Link>
         )}
-        <div>
-          <p>
-            {lastElementAtName.type.name || lastElementAtName.type.ofType.name}
-          </p>
-          <p>{lastElementAtName.description}</p>
-        </div>
+
+        {lastElementAtName && (
+          <div>
+            <p>{lastElementAtName.type.name}</p>
+            <p>{lastElementAtName.description}</p>
+          </div>
+        )}
+        {!lastElementAtName && (
+          <div>
+            <p>
+              {elem2?.name} : {elem2?.type.name}
+            </p>
+            <p>{elem2?.description}</p>
+          </div>
+        )}
       </div>
     );
   }
@@ -100,14 +122,17 @@ export function QueryFields({ schema }: ISchemaProps) {
   if (schemaArray[schemaArray.length - 1]?.type === TYPE.queryParams) {
     return (
       <div>
-        <button onClick={onBack}>
-          {schemaArray[schemaArray.length - 1].name}
-        </button>
+        <Link component="button" onClick={onBack}>
+          {schemaArray[schemaArray.length - 2]
+            ? `< ${schemaArray[schemaArray.length - 2].name}`
+            : '< Docs'}
+        </Link>
         <p>{lastElementAtType?.name}</p>
         {lastElementAtType?.inputFields?.map((el: any, id: number) => (
           <p key={id}>
             <span>{el.name}</span> :{' '}
-            <a
+            <Link
+              underline="hover"
               href="#"
               onClick={(event) => {
                 event.preventDefault();
@@ -115,7 +140,7 @@ export function QueryFields({ schema }: ISchemaProps) {
               }}
             >
               {el.type?.name}
-            </a>
+            </Link>
           </p>
         ))}
         <p>{lastElementAtType?.description}</p>
@@ -126,9 +151,11 @@ export function QueryFields({ schema }: ISchemaProps) {
   return (
     <div>
       {schemaArray[schemaArray.length - 1]?.type === TYPE.query && (
-        <button onClick={onBack}>
-          {schemaArray[schemaArray.length - 1].name}
-        </button>
+        <Link component="button" onClick={onBack}>
+          {schemaArray[schemaArray.length - 2]
+            ? `< ${schemaArray[schemaArray.length - 2].name}`
+            : '< Docs'}
+        </Link>
       )}
       <div>
         <p>{lastElementAtType.name}</p>

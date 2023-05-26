@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react';
 import { QueryFields } from './Query';
+import { Button } from '@mui/material';
+import styles from './Documentation.module.css';
 
 export function Documentation() {
   const [schema, setSchema] = useState<any>();
@@ -133,10 +135,19 @@ export function Documentation() {
   }, []);
 
   return (
-    <div>
-      <button onClick={toggleFIeldset}>Docs</button>
-
-      {isShown && <QueryFields schema={schema} />}
+    <div className={styles.docContainer}>
+      <div className={styles.sidebar}>
+        <Button
+          onClick={toggleFIeldset}
+          variant="outlined"
+          className={styles.sidebarBtn}
+        >
+          Docs
+        </Button>
+      </div>
+      <div className={styles.docContent}>
+        {isShown && <QueryFields schema={schema} />}
+      </div>
     </div>
   );
 }
