@@ -21,22 +21,20 @@ interface IArrayProps {
 
 export function QueryFields({ schema }: ISchemaProps) {
   const [schemaArray, setschemaArray] = useState<IArrayProps[]>([]);
-  console.log(schemaArray);
 
   const lastElementAtType = schema?.data.__schema.types.find(
     (el: any) => el.name === schemaArray[schemaArray.length - 1]?.name
   );
-  console.log('Тип : ' + lastElementAtType);
 
   const lastElementAtName = schema.data.__schema.types[0].fields.find(
     (el: any) => el.name === schemaArray[schemaArray.length - 1]?.name
   );
 
-  const elem = schema?.data.__schema.types.find(
+  const parameterType = schema?.data.__schema.types.find(
     (el: any) => el.name === schemaArray[schemaArray.length - 2]?.name
   );
 
-  const elem2 = elem?.fields.find(
+  const parameter = parameterType?.fields?.find(
     (el: any) => el.name === schemaArray[schemaArray.length - 1]?.name
   );
 
@@ -103,16 +101,35 @@ export function QueryFields({ schema }: ISchemaProps) {
 
         {lastElementAtName && (
           <div>
-            <p>{lastElementAtName.type.name}</p>
+            <h2 className={styles.h2}>{lastElementAtName.type.name}</h2>
             <p>{lastElementAtName.description}</p>
+            <h5 className={styles.h2}>Type</h5>
+            <p>
+              {lastElementAtName.type?.name
+                ? lastElementAtName.type?.name
+                : lastElementAtName.type?.ofType?.name}
+            </p>
+            <h5 className={styles.h5}>Arguments</h5>
+            {lastElementAtName.args?.map((el: any, id: number) => (
+              <p key={id}>
+                {el.name} :{' '}
+                {el.type.name
+                  ? el.type?.name
+                  : el.type?.ofType?.name
+                  ? el.type?.ofType?.name
+                  : el.type?.ofType?.ofType?.name
+                  ? el.type?.ofType?.ofType?.name
+                  : el.type?.ofType?.ofType?.ofType?.name}
+              </p>
+            ))}
           </div>
         )}
         {!lastElementAtName && (
           <div>
-            <p>
-              {elem2?.name} : {elem2?.type.name}
-            </p>
-            <p>{elem2?.description}</p>
+            <h2 className={styles.h2}>{parameter?.name}</h2>
+            <p>{parameter?.description}</p>
+            <h5 className={styles.h5}>Type</h5>
+            <p>{parameter?.type.name}</p>
           </div>
         )}
       </div>
@@ -127,7 +144,7 @@ export function QueryFields({ schema }: ISchemaProps) {
             ? `< ${schemaArray[schemaArray.length - 2].name}`
             : '< Docs'}
         </Link>
-        <p>{lastElementAtType?.name}</p>
+        <h2 className={styles.h2}>{lastElementAtType?.name}</h2>
         {lastElementAtType?.inputFields?.map((el: any, id: number) => (
           <p key={id}>
             <span>{el.name}</span> :{' '}
@@ -158,7 +175,7 @@ export function QueryFields({ schema }: ISchemaProps) {
         </Link>
       )}
       <div>
-        <p>{lastElementAtType.name}</p>
+        <h2 className={styles.h2}>{lastElementAtType.name}</h2>
         <p>{lastElementAtType.description}</p>
       </div>
       {lastElementAtType?.fields?.map((el: any, id: number) => (

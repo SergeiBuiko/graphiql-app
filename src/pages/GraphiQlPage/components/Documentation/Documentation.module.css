@@ -1,29 +1,29 @@
 .docContainer {
-    /* background-color: purple; */
-    height: 100%;
-    width: 100%;
-    display: flex;
-    padding: 15px;
+  /* background-color: purple; */
+  height: 100%;
+  width: 100%;
+  display: flex;
+  padding: 15px;
 }
 
 .sidebar {
-    width: 20%;
-    background-color: rgb(209, 208, 214);
-    padding: 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start
-        /* height: 200px; */
+  width: 20%;
+  /* background-color: rgb(209, 208, 214); */
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  /* height: 200px; */
 }
 
 .sidebarBtn {
-    margin: 0 auto;
-    background-color: brown;
+  margin: 0 auto;
+  background-color: brown;
 }
 
 .docContent {
-    background-color: rgb(214, 231, 231);
-    width: 80%;
-    padding: 10px;
-    /* height: 200px; */
+  /* background-color: rgb(214, 231, 231); */
+  width: 80%;
+  padding: 10px;
+  /* height: 200px; */
 }

@@ -40,7 +40,7 @@ export function ElementParams({ el, addParams }: IParamsProps) {
               : elem.type?.ofType?.ofType?.ofType?.name}
           </Link>{' '}
         </span>
-      ))}
+      ))}{' '}
       )
     </span>
   );

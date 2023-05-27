@@ -18,7 +18,7 @@ export function ElementDetails({
   addParams,
 }: ISchemaProps) {
   return (
-    <div>
+    <div className={styles.padding}>
       <Link
         underline="hover"
         href="#"
