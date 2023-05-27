@@ -4,7 +4,7 @@ import { lazy, useState, Suspense } from 'react';
 import { I18nProvider, LOCALES } from './i18n';
 import translate from './i18n/translate';
 import { Footer, Navigation } from './components';
-import { useAppDispatch } from './store/hooks';
+import { useAppDispatch, useAppSelector } from './store/hooks';
 import * as React from 'react';
 import { Loading } from './components/Loading';
 import { auth } from './firebaseClient/clientApp';
@@ -34,9 +34,14 @@ export function App() {
   const [locale, setLocal] = useState(LOCALES.ENGLISH);
   const dispatch = useAppDispatch();
   const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const isAuth = useAppSelector((state) => state.authentication.userEmail);
 
   const PrivateRoute = ({ element }: PrivateRouteProps) => {
-    return isLoggedIn ? <>{element}</> : <Navigate to="/" replace={true} />;
+    return isLoggedIn || isAuth ? (
+      <>{element}</>
+    ) : (
+      <Navigate to="/" replace={true} />
+    );
   };
 
   auth.onAuthStateChanged((user) => {

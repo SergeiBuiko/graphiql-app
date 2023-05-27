@@ -14,6 +14,7 @@ export function Navigation() {
   const dispatch = useAppDispatch();
   const intl = useIntl();
   const navigate = useNavigate();
+  const queryParams = location.pathname.includes('/GraphiQL');
 
   const handleSignOut = () => {
     signOut(auth)
@@ -37,7 +38,11 @@ export function Navigation() {
   });
 
   return (
-    <nav className={styles.navigation}>
+    <nav
+      className={`${styles.navigation} ${
+        isAuth && queryParams ? styles.sticky : ''
+      }`}
+    >
       <a href="https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/graphiql.md">
         <img className={styles['logo-main']} src="Logo.png"></img>
       </a>
