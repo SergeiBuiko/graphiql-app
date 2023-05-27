@@ -19,6 +19,12 @@
 
 .nav-list {
   margin-right: 1.25rem;
+  text-decoration: none;
+  color: #b0b9c9;
+}
+
+.nav-list:hover {
+  color: #e435aa;
 }
 
 .logo-main {
@@ -70,10 +76,6 @@
   .logout-text {
     display: none;
   }
-
-  .logo-main {
-    display: none;
-  }
 }
 
 .buttonWrapper {
@@ -85,4 +87,20 @@
 
 .linkButton {
   text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-list {
+    font-size: 0.9rem;
+  }
+
+  .logo-main {
+    width: 32px;
+  }
+}
+
+.linkNavListWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
 }

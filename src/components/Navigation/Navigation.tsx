@@ -41,7 +41,7 @@ export function Navigation() {
       <a href="https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/graphiql.md">
         <img className={styles['logo-main']} src="Logo.png"></img>
       </a>
-      <div>
+      <div className={styles.linkNavListWrapper}>
         <Link to="/" className={styles['nav-list']}>
           {translate('navigationWelcomeLink')}
         </Link>

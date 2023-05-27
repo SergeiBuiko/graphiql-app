@@ -1,6 +1,5 @@
 .footer-wrap {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,8 +14,14 @@
   width: 150px;
 }
 
-.github-link {
+.github-link, .text {
   margin-right: 10px;
+  text-decoration: none;
+  color: #b0b9c9;
+}
+
+.github-link:hover {
+  color: #e435aa;
 }
 
 .develop-wrapper {
@@ -27,6 +32,16 @@
 .develop-links {
   display: flex;
   flex-direction: column;
-  height: 80px;
-  justify-content: space-around;
+  gap: 2px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .github-link {
+    font-size: 0.9rem;
+  }
+
+  .rs-img, .github-img {
+    width: 80px;
+  }
 }

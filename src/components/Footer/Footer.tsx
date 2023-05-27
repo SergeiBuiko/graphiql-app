@@ -28,7 +28,7 @@ export function Footer() {
         </div>
       </div>
       <div>
-        <p>2023</p>
+        <p className={styles.text}>2023</p>
       </div>
       <div className="rs-school">
         <a href="https://rs.school/js/">
