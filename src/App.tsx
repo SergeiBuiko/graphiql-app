@@ -104,6 +104,14 @@ export function App() {
                   </Suspense>
                 }
               />
+              <Route
+                path="/*"
+                element={
+                  <Suspense fallback={<Loading />}>
+                    <NotFoundPage />
+                  </Suspense>
+                }
+              />
             </Routes>
           </div>
           <Footer />
