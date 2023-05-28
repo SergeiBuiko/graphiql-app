@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { ElementDetails } from '../ElementDetails';
 import { Link } from '@mui/material';
 import styles from './QueryFields.module.css';
 import { getElementOfTypeName } from '../ElementParams/ElementParams';
+import { ISchema } from '../const/types';
 
 enum TYPE {
   query = 'query',
@@ -12,18 +12,7 @@ enum TYPE {
 }
 
 interface ISchemaProps {
-  schema?: any;
-}
-
-interface ISchema {
-  data: {
-    __schema: {
-      types: [{ fields: []; name: string }];
-      queryType: {
-        name: string;
-      };
-    };
-  };
+  schema?: ISchema;
 }
 
 interface IArrayProps {
@@ -35,34 +24,19 @@ export function QueryFields({ schema }: ISchemaProps) {
   const [schemaArray, setschemaArray] = useState<IArrayProps[]>([]);
 
   const lastElementAtType = schema?.data.__schema?.types.find(
-    (el: IObjectName) => el.name === schemaArray[schemaArray.length - 1]?.name
+    (el) => el.name === schemaArray[schemaArray.length - 1]?.name
   );
 
-  const lastElementAtName = schema?.data.__schema.types[0].fields.find(
-    (el: IObjectName) => el.name === schemaArray[schemaArray.length - 1]?.name
+  const lastElementAtName = schema?.data.__schema.types[0].fields?.find(
+    (el) => el.name === schemaArray[schemaArray.length - 1]?.name
   );
-
-  interface IObjectName {
-    name: string;
-  }
-
-  interface Element {
-    name: string;
-    description: string;
-    type: ElementOfType;
-  }
-
-  interface ElementOfType {
-    name: string;
-    ofType: ElementOfType;
-  }
 
   const parameterType = schema?.data.__schema.types.find(
-    (el: IObjectName) => el.name === schemaArray[schemaArray.length - 2]?.name
+    (el) => el.name === schemaArray[schemaArray.length - 2]?.name
   );
 
   const parameter = parameterType?.fields?.find(
-    (el: IObjectName) => el.name === schemaArray[schemaArray.length - 1]?.name
+    (el) => el.name === schemaArray[schemaArray.length - 1]?.name
   );
 
   const addType = (name: string) => {
@@ -137,7 +111,7 @@ export function QueryFields({ schema }: ISchemaProps) {
                 : lastElementAtName.type?.ofType?.name}
             </p>
             <h5 className={styles.h5}>Arguments</h5>
-            {lastElementAtName.args?.map((el: Element, id: number) => {
+            {lastElementAtName.args?.map((el, id: number) => {
               const elementName =
                 el.type?.name || getElementOfTypeName(el.type);
               return (
@@ -169,7 +143,7 @@ export function QueryFields({ schema }: ISchemaProps) {
             : '< Docs'}
         </Link>
         <h2 className={styles.h2}>{lastElementAtType?.name}</h2>
-        {lastElementAtType?.inputFields?.map((el: Element, id: number) => (
+        {lastElementAtType?.inputFields?.map((el, id: number) => (
           <p key={id}>
             <span>{el.name}</span> :{' '}
             <Link
@@ -199,10 +173,10 @@ export function QueryFields({ schema }: ISchemaProps) {
         </Link>
       )}
       <div>
-        <h2 className={styles.h2}>{lastElementAtType.name}</h2>
-        <p>{lastElementAtType.description}</p>
+        <h2 className={styles.h2}>{lastElementAtType?.name}</h2>
+        <p>{lastElementAtType?.description}</p>
       </div>
-      {lastElementAtType?.fields?.map((el: Element, id: number) => (
+      {lastElementAtType?.fields?.map((el, id: number) => (
         <div key={id}>
           <ElementDetails
             el={el}

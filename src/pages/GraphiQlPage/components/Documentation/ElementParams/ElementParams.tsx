@@ -1,33 +1,34 @@
 import { Link } from '@mui/material';
+import { Field, Type2, Type3 } from '../const/types';
 
-interface IElement {
-  name: string | ' ';
-  args?: [];
-  type: IElementOfType;
-  ofType?: IElementOfType;
-}
-interface IElementOfType {
-  name: string;
-  ofType: IElementOfType;
-}
+// interface IElement {
+//   name: string | ' ';
+//   args?: [];
+//   type: IElementOfType;
+//   ofType?: IElementOfType;
+// }
+// interface IElementOfType {
+//   name: string;
+//   ofType: IElementOfType;
+// }
 
-interface IElem {
-  name: string | ' ';
-  type?: IElemOfType;
-  ofType?: IElemOfType;
-}
+// interface IElem {
+//   name: string | ' ';
+//   type?: IElemOfType;
+//   ofType?: IElemOfType;
+// }
 
-interface IElemOfType {
-  name: string;
-  ofType: IElemOfType;
-}
+// interface IElemOfType {
+//   name: string;
+//   ofType: IElemOfType;
+// }
 
 interface IParamsProps {
-  el: IElement;
+  el: Field;
   addParams: (name: string) => void;
 }
 
-export function getElementOfTypeName(elem: IElem): string | ' ' {
+export function getElementOfTypeName(elem: Type3 | Type2): string | ' ' {
   if (!elem?.ofType) {
     return ' ';
   }
@@ -38,7 +39,7 @@ export function ElementParams({ el, addParams }: IParamsProps) {
   return (
     <span>
       (
-      {el.args?.map((elem: IElement, id: number) => {
+      {el.args?.map((elem, id: number) => {
         const elementName = elem.type?.name || getElementOfTypeName(elem.type);
 
         return (
