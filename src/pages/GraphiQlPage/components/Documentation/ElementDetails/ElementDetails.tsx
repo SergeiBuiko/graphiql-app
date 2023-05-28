@@ -4,8 +4,18 @@ import { Link } from '@mui/material';
 import { ElementParams } from '../ElementParams';
 import styles from './ElementDetails.module.css';
 
+interface Element {
+  name: string;
+  type: ElementOfType
+}
+
+interface ElementOfType {
+  name: string;
+  ofType: ElementOfType;
+}
+
 interface ISchemaProps {
-  el?: any;
+  el?: Element;
   addType: (name: string) => void;
   addName: (name: string) => void;
   addParams: (name: string) => void;
