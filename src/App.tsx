@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 import styles from './App.module.css';
-import { lazy, useState, Suspense } from 'react';
+import { lazy, useState, Suspense, useEffect } from 'react';
 import { I18nProvider, LOCALES } from './i18n';
 import translate from './i18n/translate';
 import { Footer, Navigation } from './components';
@@ -25,16 +25,31 @@ const GraphiQlPage = lazy(() =>
     default: GraphiQlPage,
   }))
 );
-
+const NotFoundPage = lazy(() =>
+  import('./pages/NotFoundPage/NotFoundPage').then(({ NotFoundPage }) => ({
+    default: NotFoundPage,
+  }))
+);
 interface PrivateRouteProps {
   element: JSX.Element;
 }
 
 export function App() {
-  const [locale, setLocal] = useState(LOCALES.ENGLISH);
+  const [locale, setLocale] = useState(LOCALES.ENGLISH);
   const dispatch = useAppDispatch();
   const isLoggedIn = localStorage.getItem('isLoggedIn');
   const isAuth = useAppSelector((state) => state.authentication.userEmail);
+
+  useEffect(() => {
+    const storedLocale = localStorage.getItem('locale');
+    if (storedLocale) {
+      setLocale(storedLocale);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('locale', locale);
+  }, [locale]);
 
   const PrivateRoute = ({ element }: PrivateRouteProps) => {
     return isLoggedIn || isAuth ? (
@@ -64,7 +79,7 @@ export function App() {
               locale === LOCALES.ENGLISH ? styles.active : ''
             }`}
             onClick={() => {
-              setLocal(LOCALES.ENGLISH);
+              setLocale(LOCALES.ENGLISH);
             }}
           >
             En
@@ -74,7 +89,7 @@ export function App() {
               locale === LOCALES.RUSSIAN ? styles.active : ''
             }`}
             onClick={() => {
-              setLocal(LOCALES.RUSSIAN);
+              setLocale(LOCALES.RUSSIAN);
             }}
           >
             Ru
@@ -111,6 +126,7 @@ export function App() {
                 </Suspense>
               }
             />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
         <Footer />
