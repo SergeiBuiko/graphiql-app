@@ -1,28 +1,6 @@
 import { Link } from '@mui/material';
 import { Field, Type2, Type3 } from '../const/types';
 
-// interface IElement {
-//   name: string | ' ';
-//   args?: [];
-//   type: IElementOfType;
-//   ofType?: IElementOfType;
-// }
-// interface IElementOfType {
-//   name: string;
-//   ofType: IElementOfType;
-// }
-
-// interface IElem {
-//   name: string | ' ';
-//   type?: IElemOfType;
-//   ofType?: IElemOfType;
-// }
-
-// interface IElemOfType {
-//   name: string;
-//   ofType: IElemOfType;
-// }
-
 interface IParamsProps {
   el: Field;
   addParams: (name: string) => void;

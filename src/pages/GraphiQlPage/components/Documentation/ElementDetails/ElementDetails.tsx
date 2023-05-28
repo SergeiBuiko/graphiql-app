@@ -4,17 +4,6 @@ import styles from './ElementDetails.module.css';
 import { getElementOfTypeName } from '../ElementParams/ElementParams';
 import { Field } from '../const/types';
 
-// interface Element {
-//   name: string;
-//   description: string;
-//   type: ElementOfType;
-// }
-
-// interface ElementOfType {
-//   name: string;
-//   ofType: ElementOfType;
-// }
-
 interface ISchemaProps {
   el: Field;
   addType: (name: string) => void;
