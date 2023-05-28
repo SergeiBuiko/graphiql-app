@@ -1,7 +1,14 @@
 import { Grid, Paper } from '@mui/material';
-import { Documentation } from './components/Documentation';
+import { lazy, Suspense } from 'react';
 import { Editor } from './components/Editor';
 import styles from './GraphiQlPage.module.css';
+import { Loading } from '../../components/Loading';
+
+const Documentation = lazy(() =>
+  import('./components/Documentation').then(({ Documentation }) => ({
+    default: Documentation,
+  }))
+);
 
 export function GraphiQlPage() {
   return (
@@ -13,7 +20,9 @@ export function GraphiQlPage() {
     >
       <Grid item xs={12} sm={4}>
         <Paper>
-          <Documentation />
+          <Suspense fallback={<Loading />}>
+            <Documentation />
+          </Suspense>
         </Paper>
       </Grid>
       <Grid item xs={12} sm={8} minWidth="320px">
