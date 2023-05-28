@@ -11,12 +11,12 @@ export function GraphiQlPage() {
       spacing={2}
       alignItems={'stretch'}
     >
-      <Grid item xs={4}>
+      <Grid item xs={12} sm={4}>
         <Paper>
           <Documentation />
         </Paper>
       </Grid>
-      <Grid item xs={8} minWidth="320px">
+      <Grid item xs={12} sm={8} minWidth="320px">
         <Paper className={styles.content}>
           <Editor />
         </Paper>

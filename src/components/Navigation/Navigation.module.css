@@ -1,112 +1,64 @@
-.navigation {
-  display: flex;
-  height: 64px;
-  align-items: center;
-  justify-content: space-between;
-  background-color: rgb(61, 70, 87);
-  text-align: center;
-  color: white;
-  font-size: large;
-  padding: 1%;
-}
-
-.button-lang {
-  width: 4rem;
-  border-radius: 9999px;
-  padding: 0.5rem;
-  border-width: 1px;
-}
-
-.nav-list {
-  margin-right: 1.25rem;
-  text-decoration: none;
-  color: #b0b9c9;
-}
-
-.nav-list:hover {
-  color: #e435aa;
-}
-
 .logo-main {
   width: 50px;
 }
 
-@media screen and (max-width: 850px) and (min-width: 700px) {
-  .navigation-container {
-    font-size: medium;
-  }
+header.appBar {
+  background-color: rgb(61, 70, 87);
 }
 
-@media screen and (max-width: 699px) and (min-width: 596px) {
-  .navigation-container {
-    font-size: small;
-  }
-
-  .button-lang {
-    width: 2.5rem;
-  }
-
-  .logout {
-    font-size: smaller;
-  }
-
-  .nav-list {
-    margin-right: 0.3rem;
-  }
+header.appBar._scrolled {
+  opacity: 0.8;
 }
 
-@media screen and (max-width: 595px) and (min-width: 320px) {
-  .navigation-container {
-    font-size: 10px;
-  }
+.headerContainer {
+  display: flex;
+  padding: 0 42px;
+  align-items: center;
+  min-width: 320px;
+  box-sizing: border-box;
+  gap: 20px;
+  white-space: nowrap;
+}
 
-  .button-lang {
-    width: 2rem;
-    padding: 0.25rem;
-  }
+.logo {
+  margin-right: 20px;
+}
 
-  .logout {
-    font-size: 10px;
-  }
+.nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
 
-  .nav-list {
-    margin-right: 0.25rem;
-  }
+.rightNav {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
 
-  .logout-text {
+.translate {
+  margin-left: 20px;
+}
+
+@media screen and (max-width: 420px) {
+  .logo {
     display: none;
   }
 }
 
-.buttonWrapper {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.linkButton {
-  text-decoration: none;
-}
-
-@media screen and (max-width: 768px) {
-  .nav-list {
-    font-size: 0.9rem;
+@media screen and (max-width: 720px) {
+  .headerContainer {
+    padding: 12px 24px;
   }
 
-  .logo-main {
-    width: 32px;
+  .translate {
+    order: -1;
+    margin-bottom: 16px;
+    margin-left: 0;
   }
-}
 
-.linkNavListWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-}
-
-.sticky {
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  .rightNav, .nav {
+    flex-direction: column;
+    align-items: unset;
+  }
 }
