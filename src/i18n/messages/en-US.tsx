@@ -9,7 +9,7 @@ export default {
     accountPageTitleSignUp: 'Sign up to your account',
 
     navigationWelcomeLink: 'WELCOME PAGE',
-    navigationBtnSighIn: 'Sigh In',
+    navigationBtnSighIn: 'Sign In',
     navigationBtnSighUp: 'Sign Up',
     navigationBtnSignOut: 'Sign out',
 
