@@ -21,7 +21,7 @@ export default {
     signUpEmailExistError: 'Email already exists. Please, sign in',
     signUpEnterEmailPlaceholder: 'Enter email',
     signUpEnterPasswordPlaceholder: 'Enter password',
-    signUpBtnSighIn: 'Sigh In',
+    signUpBtnSighIn: 'Sign In',
     signUpBtnSighUp: 'Sign Up',
 
     editorGraphQLApiPlaceholder:
