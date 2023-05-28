@@ -24,8 +24,6 @@ export function Documentation() {
       .then((data) => setSchema(data));
   };
 
-  console.log(schema);
-
   useEffect(() => {
     showGraphQLData();
   }, []);
