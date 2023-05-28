@@ -25,7 +25,11 @@ const GraphiQlPage = lazy(() =>
     default: GraphiQlPage,
   }))
 );
-
+const NotFoundPage = lazy(() =>
+  import('./pages/NotFoundPage/NotFoundPage').then(({ NotFoundPage }) => ({
+    default: NotFoundPage,
+  }))
+);
 interface PrivateRouteProps {
   element: JSX.Element;
 }
@@ -122,6 +126,7 @@ export function App() {
                 </Suspense>
               }
             />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
         <Footer />

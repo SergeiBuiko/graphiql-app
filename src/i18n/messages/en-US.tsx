@@ -48,5 +48,9 @@ export default {
     errAtLeastOneDigit: '* This field must contain at least one digit',
     errSpecialCharacter:
       '* This field must contain at least one special character',
+
+    pageNotFound: 'Page not found',
+    pageNotFoundInfo: 'Please check the URL or go back to the homepage',
+    pageNotFoundButton: 'Go Home',
   },
 };

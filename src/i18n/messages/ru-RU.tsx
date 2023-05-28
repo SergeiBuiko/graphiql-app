@@ -50,5 +50,10 @@ export default {
     errAtLeastOneDigit: '* Это поле должно содержать хотя бы одну цифру',
     errSpecialCharacter:
       '* Это поле должно содержать хотя бы один специальный символ',
+
+    pageNotFound: 'Страница не найдена',
+    pageNotFoundInfo:
+      'Пожалуйста, проверьте URL или вернитесь на главную страницу',
+    pageNotFoundButton: 'На Главную',
   },
 };
