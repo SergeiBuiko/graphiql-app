@@ -2,20 +2,10 @@ import { Link } from '@mui/material';
 import { ElementParams } from '../ElementParams';
 import styles from './ElementDetails.module.css';
 import { getElementOfTypeName } from '../ElementParams/ElementParams';
-
-interface Element {
-  name: string;
-  description: string;
-  type: ElementOfType;
-}
-
-interface ElementOfType {
-  name: string;
-  ofType: ElementOfType;
-}
+import { Field } from '../const/types';
 
 interface ISchemaProps {
-  el: Element;
+  el: Field;
   addType: (name: string) => void;
   addName: (name: string) => void;
   addParams: (name: string) => void;
