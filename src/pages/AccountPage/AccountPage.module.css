@@ -46,5 +46,12 @@
     .formWrapper {
         padding: 32px 24px;
         gap: 2rem;
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .formWrapper {
+        width: 80%;
     }
 }

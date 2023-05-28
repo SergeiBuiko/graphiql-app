@@ -38,9 +38,13 @@ export function Navigation() {
   const dispatch = useAppDispatch();
   const intl = useIntl();
   const navigate = useNavigate();
+<<<<<<< HEAD
   const location = useLocation();
   const [locale, setLocal] = useState(LOCALES.ENGLISH);
   const trigger = useScrollTrigger();
+=======
+  const queryParams = location.pathname.includes('/GraphiQL');
+>>>>>>> 597ee1bdbe640dc8b843dc372d5c6ccdc21268fb
 
   const handleSignOut = () => {
     signOut(auth)

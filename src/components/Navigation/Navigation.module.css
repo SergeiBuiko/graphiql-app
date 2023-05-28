@@ -19,6 +19,12 @@
 
 .nav-list {
   margin-right: 1.25rem;
+  text-decoration: none;
+  color: #b0b9c9;
+}
+
+.nav-list:hover {
+  color: #e435aa;
 }
 
 .logo-main {
@@ -70,11 +76,15 @@
   .logout-text {
     display: none;
   }
+<<<<<<< HEAD
 
   .logo-main {
     display: none;
   }
 } */
+=======
+}
+>>>>>>> 597ee1bdbe640dc8b843dc372d5c6ccdc21268fb
 
 .buttonWrapper {
   display: flex;
