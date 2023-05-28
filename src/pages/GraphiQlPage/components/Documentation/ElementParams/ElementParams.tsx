@@ -7,6 +7,13 @@ interface IParamsProps {
   addParams: (name: string) => void;
 }
 
+export function getElementOfTypeName(elem: any): string | null {
+  if (!elem?.ofType) {
+    return null;
+  }
+  return elem?.ofType?.name || getElementOfTypeName(elem.ofType);
+}
+
 export function ElementParams({ el, addParams }: IParamsProps) {
   return (
     <span>
