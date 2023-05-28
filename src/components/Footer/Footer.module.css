@@ -5,26 +5,6 @@
   color: white;
 }
 
-.navLinks {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  border-bottom: 1px solid #7c5b82;
-  gap: 1rem;
-  font-size: 1rem;
-}
-
-.linkItem {
-  text-decoration: none;
-  color: #b0b9c9;
-}
-
-.linkItem:hover {
-  color: #e435aa;
-}
-
 .footer-wrap {
   padding: 1rem;
   display: flex;
@@ -35,6 +15,7 @@
 .github-img {
   width: 120px;
 }
+
 .rs-img {
   width: 150px;
 }
@@ -65,7 +46,7 @@
 
 
 @media screen and (max-width: 768px) {
-  .github-link, .navLinks, .text  {
+  .github-link, .text  {
     font-size: 0.9rem;
   }
 
