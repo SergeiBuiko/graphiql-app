@@ -1,0 +1,16 @@
+.response {
+  position: absolute;
+  width: 100%;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.responseContainer {
+  position: relative;
+  display: flex;
+  height: 100%;
+  overflow-y: auto;
+  padding: 8px 0;
+}

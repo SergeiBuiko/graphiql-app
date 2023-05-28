@@ -1,0 +1,31 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.editorField {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  padding-right: 80px;
+  border: none;
+  border-radius: 20px;
+  resize: none;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.toolsContainer {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.playBtn {
+  position: relative;
+  display: flex;
+  height: 100%;
+}
