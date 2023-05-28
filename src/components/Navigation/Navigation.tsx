@@ -67,14 +67,16 @@ export function Navigation({ locale, updateLocale }: NavigationProps) {
           >
             {translate('navigationWelcomeLink')}
           </MUIButton>
-          <MUIButton
-            component={Link}
-            to="/GraphiQL"
-            variant={defineNavStyle('/GraphiQL')}
-            sx={{ color: 'white' }}
-          >
-            GraphiQL
-          </MUIButton>
+          {isAuth && (
+            <MUIButton
+              component={Link}
+              to="/GraphiQL"
+              variant={defineNavStyle('/GraphiQL')}
+              sx={{ color: 'white' }}
+            >
+              GraphiQL
+            </MUIButton>
+          )}
         </nav>
 
         <nav className={styles.rightNav}>
