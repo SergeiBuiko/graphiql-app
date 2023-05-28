@@ -6,7 +6,7 @@ import styles from './ElementDetails.module.css';
 
 interface Element {
   name: string;
-  type: ElementOfType
+  type: ElementOfType;
 }
 
 interface ElementOfType {
@@ -15,7 +15,7 @@ interface ElementOfType {
 }
 
 interface ISchemaProps {
-  el?: Element;
+  el?: any;
   addType: (name: string) => void;
   addName: (name: string) => void;
   addParams: (name: string) => void;

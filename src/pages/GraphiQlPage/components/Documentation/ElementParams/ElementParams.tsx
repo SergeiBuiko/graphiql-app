@@ -18,7 +18,7 @@ export function ElementParams({ el, addParams }: IParamsProps) {
   return (
     <span>
       (
-  {el.args?.map((elem: any, id: number) => {
+      {el.args?.map((elem: any, id: number) => {
         const elementName = elem.type?.name || getElementOfTypeName(elem.type);
 
         return (

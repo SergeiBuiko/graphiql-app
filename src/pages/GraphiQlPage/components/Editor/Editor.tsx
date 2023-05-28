@@ -34,7 +34,11 @@ export const Editor = () => {
   const [result, setResult] = useState<string>();
   const [gqlError, setGqlError] = useState<string | null>();
   const [gqlErrorSnackbar, setGqlErrorSnackbar] = useState<boolean>();
-  const { register, watch } = useForm<{ graphQLApi: string }>();
+  const { register, watch } = useForm<{ graphQLApi: string }>({
+    defaultValues: {
+      graphQLApi: 'https://rickandmortyapi.graphcdn.app/',
+    },
+  });
   const watchGraphQLApi = watch('graphQLApi');
   const intl = useIntl();
 
@@ -77,6 +81,7 @@ export const Editor = () => {
         {...register('graphQLApi')}
         label="GraphQLapi"
         variant="outlined"
+        disabled
         placeholder={intl.formatMessage({ id: 'editorGraphQLApiPlaceholder' })}
       />
 
